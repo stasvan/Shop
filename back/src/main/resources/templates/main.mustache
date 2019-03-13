@@ -1,0 +1,19 @@
+<html>
+<body>
+    <div>
+        <form method="post">
+            <input type="text" name="name" placeholder="Введите имя" />
+            <input type="text" name="email" placeholder="Введите email" />
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+    <div>Список пользователей</div>
+    {{#user}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{name}}</span>
+        <i>{{email}}</i>
+    </div>
+    {{/user}}
+</body>
+</html>
