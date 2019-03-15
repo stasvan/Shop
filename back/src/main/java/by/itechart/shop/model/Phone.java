@@ -1,5 +1,8 @@
 package by.itechart.shop.model;
 
+import by.itechart.shop.repository.BrandRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,10 +10,8 @@ import javax.persistence.*;
 public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Integer id;
 
-    private Integer productId;
-    private Integer brandId;
     private String model;
     private Integer year;
     private String screenResolution;
@@ -18,45 +19,37 @@ public class Phone {
     private String cpu;
     private String ram;
 
-    public Phone(Integer productId, Integer brandId, String model,
-                 Integer year, String screenResolution,
-                 String screenTechnology, String cpu, String ram) {
-        this.productId = productId;
-        this.brandId = brandId;
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
+    public Phone() {
+
+    }
+
+    public Phone(String model, Integer year, String screenResolution,
+                 String screenTechnology, String cpu, String ram,
+                 Product product, Brand brand) {
         this.model = model;
         this.year = year;
         this.screenResolution = screenResolution;
         this.screenTechnology = screenTechnology;
         this.cpu = cpu;
         this.ram = ram;
+        this.product = product;
+        this.brand = brand;
     }
 
-    public Phone() {
-
-    }
-
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public Integer getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
     }
 
     public String getModel() {
@@ -107,4 +100,19 @@ public class Phone {
         this.ram = ram;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
 }
