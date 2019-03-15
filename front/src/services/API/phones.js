@@ -1,17 +1,4 @@
-const phones = [
-    {
-        "id": 1,
-        "model": "iPhone 5",
-        "brand": "Apple",
-        "year": 2012,
-    },
-    {
-        "id": 2,
-        "model": "iPhone 6",
-        "brand": "Apple",
-        "year": 2014,
-    }
-];
+
 
 const shopsPrices = [
     {
@@ -27,15 +14,17 @@ const shopsPrices = [
 const delay = (ms) =>
     new Promise(resolve => setTimeout(resolve, ms));
 
+
+
+
+
 export const getPhones = () =>
-    delay(500)
-        .then(() => {
-            return phones;
-        });
+    fetch('http://localhost:8090/phones')
+        .then(data => data.json())
+        .then((data) => { return data });
 
 export const getPhoneById = (id) =>
-    delay(500)
-        .then(() => {
-            const phoneInfo = phones.find(phone => phone.id === id);
-            return phoneInfo;
-        });
+    fetch('http://localhost:8090/phoneById')
+        .then(data => data.json())
+        .then((data) => { return data });
+

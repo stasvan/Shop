@@ -1,30 +1,67 @@
 import React, {Component} from 'react';
+import { Button, FormGroup, FormControl, FormLabel, NavItem } from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 
-class SignIn extends Component{
+class SignIn extends Component {
+    constructor(props) {
+        super(props);
 
-    state = {
+        this.state = {
+            email: "",
+            password: ""
+        };
+    }
 
+    validateForm() {
+        return this.state.email.length > 0 && this.state.password.length > 0;
+    }
+
+    handleChange = event => {
+        this.setState({
+            [event.target.id]: event.target.value
+        });
     };
 
-    componentDidMount() {
-
-    }
+    handleSubmit = event => {
+        event.preventDefault();
+    };
 
     render() {
-
-        return(
-            <div>
-                <h2>Authorization</h2>
-                <input type="text" name="login" placeholder="E-mail" />
-                <input type="password" name="password" placeholder="Password" />
-                <input type="submit" name="" value="Login" />
-                <NavLink to={"/Registration"}>Registration</NavLink>
-
+        return (
+            <div className="Login">
+                <form onSubmit={this.handleSubmit}>
+                    <FormGroup controlId="email" bsSize="large">
+                        <FormLabel>Email</FormLabel>
+                        <FormControl
+                            autoFocus
+                            type="email"
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                        />
+                    </FormGroup>
+                    <FormGroup controlId="password" bsSize="large">
+                        <FormLabel>Password</FormLabel>
+                        <FormControl
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                            type="password"
+                        />
+                    </FormGroup>
+                    <Button
+                        block
+                        bsSize="large"
+                        disabled={!this.validateForm()}
+                        type="submit"
+                    >
+                        Login
+                    </Button>
+                    <NavItem>
+                        <NavLink to={"/registration"}>registration</NavLink>
+                    </NavItem>
+                </form>
             </div>
-        )
+        );
     }
-
 }
 
 export default SignIn;
