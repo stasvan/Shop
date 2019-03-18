@@ -11,7 +11,7 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
 
     List<Phone> findAll();
     List<Phone> findPhonesByBrandName(String name);
-    List<Phone> findPhonesByBrandNameAndRam(String name, String ram);
+    Phone findPhoneById(Integer id);
 
 
 }

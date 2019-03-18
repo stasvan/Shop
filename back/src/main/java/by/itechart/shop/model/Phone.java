@@ -18,6 +18,7 @@ public class Phone {
     private String screenTechnology;
     private String cpu;
     private String ram;
+    private String imageName;
 
     @OneToOne
     @JoinColumn(name = "product_id")
@@ -27,13 +28,14 @@ public class Phone {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
+
     public Phone() {
 
     }
 
     public Phone(String model, Integer year, String screenResolution,
                  String screenTechnology, String cpu, String ram,
-                 Product product, Brand brand) {
+                 Product product, Brand brand, String imageName) {
         this.model = model;
         this.year = year;
         this.screenResolution = screenResolution;
@@ -42,6 +44,7 @@ public class Phone {
         this.ram = ram;
         this.product = product;
         this.brand = brand;
+        this.imageName = imageName;
     }
 
     public Integer getId() {
@@ -114,5 +117,13 @@ public class Phone {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

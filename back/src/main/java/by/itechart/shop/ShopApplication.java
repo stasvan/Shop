@@ -20,7 +20,7 @@ public class ShopApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/phones").allowedOrigins("http://localhost:3000");
-				registry.addMapping("/phones/{brand}").allowedOrigins("http://localhost:3000");
+				registry.addMapping("/phones/{id}").allowedOrigins("http://localhost:3000");
 			}
 		};
 	}

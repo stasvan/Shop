@@ -22,7 +22,7 @@ class PhoneList extends Component{
             <div>
                 {
                     phones.map(phone =>
-                        <Phone phoneInfo={phone} />
+                        <Phone key={phone.id} phone = {phone} />
                     )
                 }
             </div>
