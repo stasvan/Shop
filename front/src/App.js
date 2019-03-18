@@ -3,8 +3,8 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
 
 import Header from './components/Header'
-import PhoneList from './components/Products/PhoneList'
-import PhoneFullInfo from "./components/Products/PhoneFullInfo";
+import PhoneList from './components/Products/Phones/PhoneList'
+import PhoneFullInfo from "./components/Products/Phones/PhoneFullInfo";
 import SignIn from "./components/SignIn";
 import Greeting from "./components/Greeting";
 import Registration from "./components/Registration";

@@ -1,14 +1,26 @@
 .header {
-  background-color: aqua;
-  color: coral;
+
   width: 100%;
-  height: 60px;
 
+  &__main {
+    &__nav {
+      margin-left: 10px;
+      color: black;
+    }
+    height: 35px;
+    background-color: aqua;
+    color: coral;
 
+  }
   &__categories {
+    &__nav {
+      margin-top: 5px;
+      color: black;
+    }
     width: 100%;
+    height: 35px;
     display: inline-flex;
     justify-content: space-around;
-    background-color: chartreuse;
+    background-color: antiquewhite;
   }
 }

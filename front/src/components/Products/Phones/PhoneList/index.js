@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { getPhones } from "../../../services/API/phones";
+import { getPhones } from "../../../../services/API/phones";
 
 import Phone from '../Phone'
 

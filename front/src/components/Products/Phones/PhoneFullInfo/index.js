@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 
 import './phoneFullInfo.scss';
-import {getPhoneById} from "../../../services/API/phones";
+import {getPhoneById} from "../../../../services/API/phones";
+import {getImage} from "../../../../services/API/image";
 
 class PhoneFullInfo extends Component{
 
     state = {
         phone: {},
+        img: {}
     };
 
     componentDidMount() {
@@ -15,6 +17,10 @@ class PhoneFullInfo extends Component{
         getPhoneById(id)
             .then(data => this.setState({
                 phone: data
+            }));
+        getImage(this.state.phone.imageName)
+            .then(data => this.setState({
+                img: data
             }));
     }
 
@@ -38,9 +44,7 @@ class PhoneFullInfo extends Component{
                 </div>
                 <div className="pic">
                     <h3>Picture</h3>
-
-                    <img src={`${phone.imagePath}`} />
-
+                    <img src={`${phone.imageName}`} />
                 </div>
             </div>
         )

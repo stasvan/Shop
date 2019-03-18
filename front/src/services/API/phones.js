@@ -24,7 +24,9 @@ export const getPhones = () =>
         .then((data) => { return data });
 
 export const getPhoneById = (id) =>
-    fetch('http://localhost:8090/phoneById')
+    fetch(`http://localhost:8090/phones/${id}`)
         .then(data => data.json())
-        .then((data) => { return data });
+        .then((data) => {
+            console.log(data);
+            return data });
 

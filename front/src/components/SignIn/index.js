@@ -1,67 +1,49 @@
 import React, {Component} from 'react';
-import { Button, FormGroup, FormControl, FormLabel, NavItem } from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 
+import './signIn.scss';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Button from '@material-ui/core/Button';
+
 class SignIn extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            email: "",
-            password: ""
-        };
-    }
-
-    validateForm() {
-        return this.state.email.length > 0 && this.state.password.length > 0;
-    }
-
-    handleChange = event => {
-        this.setState({
-            [event.target.id]: event.target.value
-        });
-    };
-
-    handleSubmit = event => {
-        event.preventDefault();
-    };
 
     render() {
         return (
-            <div className="Login">
-                <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="email" bsSize="large">
-                        <FormLabel>Email</FormLabel>
-                        <FormControl
-                            autoFocus
-                            type="email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
+            <div className="signIn">
+                <MuiThemeProvider>
+                    <div>
+                        <TextField
+                            hintText="Enter your Username"
+                            floatingLabelText="Username"
+                            onChange = {(event,newValue) => this.setState({username:newValue})}
                         />
-                    </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
-                        <FormLabel>Password</FormLabel>
-                        <FormControl
-                            value={this.state.password}
-                            onChange={this.handleChange}
+                        <br/>
+                        <TextField
                             type="password"
+                            hintText="Enter your Password"
+                            floatingLabelText="Password"
+                            onChange = {(event,newValue) => this.setState({password:newValue})}
                         />
-                    </FormGroup>
-                    <Button
-                        block
-                        bsSize="large"
-                        disabled={!this.validateForm()}
-                        type="submit"
-                    >
-                        Login
-                    </Button>
-                    <NavItem>
-                        <NavLink to={"/registration"}>registration</NavLink>
-                    </NavItem>
-                </form>
+                        <br/>
+                        <Button variant="contained" color="primary"  onClick={(event) => this.handleClick(event)}>
+                            Submit
+                        </Button>
+                        <br/>
+                        <RaisedButton className="reg" primary={true} label="Registration" containerElement={<NavLink to="/registration"/>} />
+                    </div>
+                </MuiThemeProvider>
             </div>
         );
     }
+
+    handleClick(event){
+
+    }
 }
+
+
 
 export default SignIn;
