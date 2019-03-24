@@ -17,6 +17,14 @@ public class Brand {
     @OneToMany(mappedBy = "brand")
     private List<Phone> phones = new ArrayList<Phone>();
 
+    public Brand() {
+    }
+
+    public Brand(String name, String site) {
+        this.name = name;
+        this.site = site;
+    }
+
     public Integer getId() {
       return id;
     }

@@ -13,6 +13,9 @@ public class Product {
     @JoinColumn(name = "type_id")
     private ProductType productType;
 
+    @OneToOne(mappedBy = "product")
+    private Phone phone;
+
     public Product() {
     }
 
