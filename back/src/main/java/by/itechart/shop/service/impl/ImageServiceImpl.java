@@ -4,7 +4,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 @Service("imageService")
-public class ImageService {
+public class ImageServiceImpl {
 
     public ClassPathResource getImage(String imageName){
         String path = "img/phones/" + imageName;
