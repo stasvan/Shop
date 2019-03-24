@@ -1,10 +1,13 @@
 package by.itechart.shop.service.dto;
 
+import by.itechart.shop.model.Brand;
+import by.itechart.shop.model.Product;
+
 public class PhoneDto {
 
   private Integer id;
-  private Integer productId;
-  private String brand;
+  private ProductDto product;
+  private BrandDto brand;
   private String model;
   private Integer year;
   private String screenResolution;
@@ -13,11 +16,11 @@ public class PhoneDto {
   private String ram;
   private String imageName;
 
-  public PhoneDto(Integer id, Integer productId, String brand, String model,
+  public PhoneDto(Integer id, ProductDto product, BrandDto brand, String model,
                   Integer year, String screenResolution, String screenTechnology,
                   String cpu, String ram, String imageName) {
     this.id = id;
-    this.productId = productId;
+    this.product = product;
     this.brand = brand;
     this.model = model;
     this.year = year;
@@ -32,6 +35,8 @@ public class PhoneDto {
 
   }
 
+
+
     public Integer getId() {
         return id;
     }
@@ -40,19 +45,19 @@ public class PhoneDto {
         this.id = id;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public ProductDto getProduct() {
+        return product;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setProduct(ProductDto product) {
+        this.product = product;
     }
 
-    public String getBrand() {
+    public BrandDto getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(BrandDto brand) {
         this.brand = brand;
     }
 

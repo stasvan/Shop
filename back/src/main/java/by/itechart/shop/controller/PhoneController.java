@@ -1,6 +1,6 @@
 package by.itechart.shop.controller;
 
-import by.itechart.shop.service.ImageService;
+import by.itechart.shop.service.impl.ImageServiceImpl;
 import by.itechart.shop.service.dto.PhoneDto;
 import by.itechart.shop.service.impl.PhoneServiceImpl;
 import org.hibernate.engine.jdbc.StreamUtils;
@@ -23,7 +23,7 @@ public class PhoneController {
     PhoneServiceImpl phoneService;
 
     @Autowired
-    ImageService imageService;
+    ImageServiceImpl imageService;
 
 //    @GetMapping("/phones")
 //    public List<Phone> getPhones(){
@@ -54,20 +54,23 @@ public class PhoneController {
 //    @GetMapping("/phones/image_{imageName}")
 //    @CrossOrigin("http://localhost:3000")
 //    public ResponseEntity<byte[]> getImageById(@PathVariable("imageName") String imageName) {
-//        byte[] image = ImageService.getImage(imageName);
+//        byte[] image = ImageServiceImpl.getImage(imageName);
 //
 //        return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(image);
 //    }
 
-    @GetMapping("/phones/image/{imageName}")
-    @CrossOrigin("http://localhost:3000")
-    public void getImage(@PathVariable("imageName") String imageName, HttpServletResponse response) throws IOException {
-
-        ClassPathResource imgFile = imageService.getImage(imageName);
-
-        response.setContentType(MediaType.IMAGE_PNG_VALUE);
-
-        StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
-    }
+//    @GetMapping("/phones/{id}/{imageName}")
+//    @CrossOrigin("http://localhost:3000")
+//    public void getImage(@PathVariable("imageName") String imageName,
+//                         @PathVariable("id") String id,
+//                         HttpServletResponse response) throws IOException {
+//
+//        ClassPathResource imgFile = imageService.getImage("phone", imageName,
+//                phoneService.getPhoneById(Integer.parseInt(id)).getBrand().getName());
+//
+//        response.setContentType(MediaType.IMAGE_PNG_VALUE);
+//
+//        StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
+//    }
 
 }

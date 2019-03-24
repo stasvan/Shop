@@ -10,7 +10,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private Integer roleId;
+    private String role;
     private String email;
     private String password;
 
@@ -23,12 +23,12 @@ public class User {
         this.id = id;
       }
 
-      public Integer getRoleId() {
-        return roleId;
+      public String getRole() {
+        return role;
       }
 
-      public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+      public void setRole(String role) {
+        this.role = role;
       }
 
       public String getEmail() {
