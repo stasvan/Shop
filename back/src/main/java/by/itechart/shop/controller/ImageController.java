@@ -38,6 +38,18 @@ public class ImageController {
         StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
     }
 
+    @GetMapping("/image/shop/{imageName}")
+    @CrossOrigin("http://localhost:3000")
+    public void getImage(@PathVariable("imageName") String imageName,
+                         HttpServletResponse response) throws IOException {
+
+        ClassPathResource imgFile = imageService.getImage("shop/" + imageName);
+
+        response.setContentType(MediaType.IMAGE_PNG_VALUE);
+
+        StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
+    }
+
 
 
 

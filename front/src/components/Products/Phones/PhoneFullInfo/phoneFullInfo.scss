@@ -10,7 +10,7 @@
   &__characteristic{
     margin-left: 20px;
     margin-top: 20px;
-    width: 50%;
+    width: 90%;
   }
 }
 
@@ -18,16 +18,19 @@
   margin: 5px;
   background-color: bisque;
   color: black;
-  width: 48%;
+  width: 49%;
   height: 400px;
   border: 1px solid blueviolet;
-  float: right;
+  float: left;
+  &__img{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    height: 330px;
+    position: center;
+  }
 
 }
 
-img{
-  height: 330px;
-}
 
 h3{
   margin-left: 20px;

@@ -1,0 +1,15 @@
+.productShop{
+  background-color: bisque;
+  color: black;
+  height: 200px;
+  width: 150px;
+  border: 1px solid blueviolet;
+  margin: 5px;
+  float: left;
+  &__img{
+    margin-left: 2px;
+    margin-bottom: 2px;
+    width: 90px;
+  }
+}
+

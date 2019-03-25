@@ -1,34 +1,19 @@
-package by.itechart.shop.model;
+package by.itechart.shop.service.dto;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+public class AddressDto {
 
-@Entity
-@Table(name = "address")
-public class Address {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private String country;
     private String city;
     private String street;
     private String house;
     private Integer apartment;
 
-    @OneToMany(mappedBy = "address")
-    private List<Shop> shops = new ArrayList<Shop>();
-
-//    @OneToMany(mappedBy = "address")
-//    private List<User> users = new ArrayList<User>();
-//
-
-    public Address() {
+    public AddressDto() {
     }
 
-    public Address(String country, String city, String street, String house, Integer apartment) {
+    public AddressDto(Integer id, String country, String city, String street, String house, Integer apartment) {
+        this.id = id;
         this.country = country;
         this.city = city;
         this.street = street;
@@ -36,7 +21,8 @@ public class Address {
         this.apartment = apartment;
     }
 
-    public Address(String country, String city, String street, String house) {
+    public AddressDto(Integer id, String country, String city, String street, String house) {
+        this.id = id;
         this.country = country;
         this.city = city;
         this.street = street;

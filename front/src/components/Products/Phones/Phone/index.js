@@ -12,7 +12,7 @@ class Phone extends Component {
                 <div>{phone.brand.name}</div>
                 <div>{phone.model}</div>
                 <div>{phone.year}</div>
-                <NavLink to={`phones/${phone.id}`}>Info</NavLink>
+                <NavLink className="nav" to={`phones/${phone.id}`}>Info</NavLink>
             </div>
         )
     }

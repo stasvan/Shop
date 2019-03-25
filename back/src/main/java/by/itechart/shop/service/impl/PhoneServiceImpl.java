@@ -35,8 +35,8 @@ public class PhoneServiceImpl implements PhoneService {
 
     public PhoneDto getPhoneById(Integer id) {
         Phone phone = phoneRepository.findPhoneById(id);
-        PhoneDto pDto = createPhoneDto(phone);
-        return pDto;
+        PhoneDto phoneDto = createPhoneDto(phone);
+        return phoneDto;
     }
 
     public List<PhoneDto> getPhonesByBrand(String name) {
@@ -50,19 +50,19 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     public PhoneDto createPhoneDto(Phone phone){
-        PhoneDto pDto = new PhoneDto();
+        PhoneDto phoneDto = new PhoneDto();
 
-        pDto.setId(phone.getId());
-        pDto.setBrand(brandService.createBrandDto(phone.getBrand()));
-        pDto.setProduct(productService.createProductDto(phone.getProduct()));
-        pDto.setModel(phone.getModel());
-        pDto.setYear(phone.getYear());
-        pDto.setCpu(phone.getCpu());
-        pDto.setRam(phone.getRam());
-        pDto.setScreenResolution(phone.getScreenResolution());
-        pDto.setScreenTechnology(phone.getScreenTechnology());
-        pDto.setImageName("http://localhost:8090/image/phone/" + phone.getBrand().getName() + "/" + phone.getImageName());
-        return pDto;
+        phoneDto.setId(phone.getId());
+        phoneDto.setBrand(brandService.createBrandDto(phone.getBrand()));
+        phoneDto.setProduct(productService.createProductDto(phone.getProduct()));
+        phoneDto.setModel(phone.getModel());
+        phoneDto.setYear(phone.getYear());
+        phoneDto.setCpu(phone.getCpu());
+        phoneDto.setRam(phone.getRam());
+        phoneDto.setScreenResolution(phone.getScreenResolution());
+        phoneDto.setScreenTechnology(phone.getScreenTechnology());
+        phoneDto.setImageName("http://localhost:8090/image/phone/" + phone.getBrand().getName() + "/" + phone.getImageName());
+        return phoneDto;
     }
 
 

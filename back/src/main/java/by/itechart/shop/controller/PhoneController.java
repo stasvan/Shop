@@ -30,9 +30,9 @@ public class PhoneController {
 //        return phoneService.getAllPhones();
 //    }
 
-    @GetMapping("/phones/{id}")
+    @GetMapping("/phones/{phoneId}")
     @CrossOrigin("http://localhost:3000")
-    public PhoneDto getPhoneById(@PathVariable("id") Integer id){
+    public PhoneDto getPhoneById(@PathVariable("phoneId") Integer id){
         return phoneService.getPhoneById(id);
     }
 
@@ -51,26 +51,5 @@ public class PhoneController {
         return phones;
     }
 
-//    @GetMapping("/phones/image_{imageName}")
-//    @CrossOrigin("http://localhost:3000")
-//    public ResponseEntity<byte[]> getImageById(@PathVariable("imageName") String imageName) {
-//        byte[] image = ImageServiceImpl.getImage(imageName);
-//
-//        return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(image);
-//    }
-
-//    @GetMapping("/phones/{id}/{imageName}")
-//    @CrossOrigin("http://localhost:3000")
-//    public void getImage(@PathVariable("imageName") String imageName,
-//                         @PathVariable("id") String id,
-//                         HttpServletResponse response) throws IOException {
-//
-//        ClassPathResource imgFile = imageService.getImage("phone", imageName,
-//                phoneService.getPhoneById(Integer.parseInt(id)).getBrand().getName());
-//
-//        response.setContentType(MediaType.IMAGE_PNG_VALUE);
-//
-//        StreamUtils.copy(imgFile.getInputStream(), response.getOutputStream());
-//    }
 
 }
