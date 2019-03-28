@@ -1,17 +1,26 @@
 package by.itechart.shop.model;
 
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String role;
-    private String email;
+    private String username;
     private String password;
 
     @OneToOne(mappedBy = "user")
@@ -20,9 +29,9 @@ public class User {
     public User() {
     }
 
-    public User(String role, String email, String password) {
+    public User(String role, String username, String password) {
         this.role = role;
-        this.email = email;
+        this.username = username;
         this.password = password;
     }
 
@@ -34,7 +43,7 @@ public class User {
         this.id = id;
     }
 
-    public String getRole() {
+    public String getRole(){
         return role;
     }
 
@@ -42,19 +51,49 @@ public class User {
         this.role = role;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String getUsername() {
+        return username;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<String> roles = new ArrayList<>();
+        roles.add(role);
+        return roles.stream().map(SimpleGrantedAuthority::new).collect(toList());
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
 }
