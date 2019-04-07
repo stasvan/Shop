@@ -51,6 +51,7 @@ class PhoneFullInfo extends Component{
                         <li className="phoneCharacteristics__characteristic">{phone.screenTechnology}</li>
                         <li className="phoneCharacteristics__characteristic">{phone.cpu}</li>
                         <li className="phoneCharacteristics__characteristic">{phone.ram}</li>
+                        <li className="phoneCharacteristics__characteristic">{phone.camera}</li>
                     </ul>
                 </div>
                 <div className="pic">

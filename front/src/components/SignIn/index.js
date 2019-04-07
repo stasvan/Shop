@@ -10,6 +10,11 @@ import Button from '@material-ui/core/Button';
 
 class SignIn extends Component {
 
+    state = {
+      email: '',
+      password: ''
+    };
+
     render() {
         return (
             <div className="signIn">
@@ -18,7 +23,7 @@ class SignIn extends Component {
                         <TextField
                             hintText="Enter your Username"
                             floatingLabelText="Username"
-                            onChange = {(event,newValue) => this.setState({username:newValue})}
+                            onChange = {(event,newValue) => this.setState({email:newValue})}
                         />
                         <br/>
                         <TextField
@@ -39,8 +44,25 @@ class SignIn extends Component {
         );
     }
 
-    handleClick(event){
 
+    handleClick(event){
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const myInit = { method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({
+                username: this.state.email,
+                password: this.state.password
+            })
+        };
+        console.log(myInit.body);
+        fetch('http://localhost:8090/signin', myInit)
+            .then(function(res){ return res.json(); })
+            .then(function(data){
+                alert( JSON.stringify( data ));
+                localStorage.setItem('user-jwt', data.token)
+            })
     }
 }
 
