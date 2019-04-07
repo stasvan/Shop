@@ -5,37 +5,52 @@ import by.itechart.shop.model.Product;
 
 public class PhoneDto {
 
-  private Integer id;
-  private ProductDto product;
-  private BrandDto brand;
-  private String model;
-  private Integer year;
-  private String screenResolution;
-  private String screenTechnology;
-  private String cpu;
-  private String ram;
-  private String imageName;
+    private Integer id;
+    private ProductDto product;
+    private BrandDto brand;
+    private String model;
+    private Integer year;
+    private String screenResolution;
+    private String screenTechnology;
+    private String cpu;
+    private String ram;
+    private String camera;
+    private String imageName;
 
-  public PhoneDto(Integer id, ProductDto product, BrandDto brand, String model,
+    public PhoneDto(Integer id, ProductDto product, BrandDto brand, String model,
                   Integer year, String screenResolution, String screenTechnology,
                   String cpu, String ram, String imageName) {
-    this.id = id;
-    this.product = product;
-    this.brand = brand;
-    this.model = model;
-    this.year = year;
-    this.screenResolution = screenResolution;
-    this.screenTechnology = screenTechnology;
-    this.cpu = cpu;
-    this.ram = ram;
-    this.imageName = imageName;
+        this.id = id;
+        this.product = product;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.screenResolution = screenResolution;
+        this.screenTechnology = screenTechnology;
+        this.cpu = cpu;
+        this.ram = ram;
+        this.imageName = imageName;
+    }
+
+    public PhoneDto(Integer id, ProductDto product, BrandDto brand, String model,
+                    Integer year, String screenResolution, String screenTechnology,
+                    String cpu, String ram, String camera, String imageName) {
+        this.id = id;
+        this.product = product;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.screenResolution = screenResolution;
+        this.screenTechnology = screenTechnology;
+        this.cpu = cpu;
+        this.ram = ram;
+        this.camera = camera;
+        this.imageName = imageName;
+    }
+
+    public PhoneDto() {
+
   }
-
-  public PhoneDto() {
-
-  }
-
-
 
     public Integer getId() {
         return id;
@@ -107,6 +122,14 @@ public class PhoneDto {
 
     public void setRam(String ram) {
         this.ram = ram;
+    }
+
+    public String getCamera() {
+        return camera;
+    }
+
+    public void setCamera(String camera) {
+        this.camera = camera;
     }
 
     public String getImageName() {

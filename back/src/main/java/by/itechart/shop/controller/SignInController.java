@@ -3,6 +3,7 @@ package by.itechart.shop.controller;
 import by.itechart.shop.model.User;
 import by.itechart.shop.repository.UserRepository;
 import by.itechart.shop.security.jwt.JwtTokenProvider;
+import by.itechart.shop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +38,11 @@ public class SignInController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    UserServiceImpl userService;
+
     @PostMapping("/signin")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity signIn(@RequestBody AuthenticationRequest data) {
         try {
             String username = data.getUsername();
@@ -44,10 +50,10 @@ public class SignInController {
 
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             System.out.println(username + " " + password);
-            String token = jwtTokenProvider.createToken(username, userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + "not found")).getRole());
+
+            String token = jwtTokenProvider.createToken(username, userService.getUserByUsername(username).getRole());
             System.out.println(token);
             Map<Object, Object> model = new HashMap<>();
-            model.put("username", username);
             model.put("token", token);
             return ok(model);
         } catch (AuthenticationException e) {

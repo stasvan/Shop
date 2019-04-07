@@ -13,5 +13,11 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
     List<Phone> findPhonesByBrandName(String name);
     Phone findPhoneById(Integer id);
 
-
+    @Query("select p from Phone p where " +
+            "(:brand is null or p.brand.name = :brand) and " +
+            "(:ram is null or p.ram = :ram) and " +
+            "(:year is null or p.year = :year)")
+    List<Phone> findPhonesByBrandNameAndRamAndYearNamedParams(@Param("brand") String brandName,
+                           @Param("ram") String ram,
+                           @Param("year") Integer year);
 }

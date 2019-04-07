@@ -1,9 +1,21 @@
 package by.itechart.shop.service.dto;
 
-public class UserDto {
+import by.itechart.shop.model.Shop;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+public class UserDto implements UserDetails {
 
     private Integer id;
-
     private String role;
     private String username;
     private String password;
@@ -11,8 +23,7 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Integer id, String role, String username, String password) {
-        this.id = id;
+    public UserDto(String role, String username, String password) {
         this.role = role;
         this.username = username;
         this.password = password;
@@ -26,7 +37,7 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getRole() {
+    public String getRole(){
         return role;
     }
 
@@ -34,6 +45,15 @@ public class UserDto {
         this.role = role;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
     public String getUsername() {
         return username;
     }
@@ -42,11 +62,32 @@ public class UserDto {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority("ROLE_" + role));
+        return roles;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
 }

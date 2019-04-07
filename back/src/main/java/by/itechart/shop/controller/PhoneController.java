@@ -40,13 +40,11 @@ public class PhoneController {
 
     @GetMapping("/phones")
     @CrossOrigin("http://localhost:3000")
-    public List<PhoneDto> getPhonesByBrand(@RequestParam(name="brand", required = false) String brand){
-        List<PhoneDto> phones;
-        if (brand == null){
-            phones = phoneService.getAllPhones();
-        }else{
-            phones = phoneService.getPhonesByBrand(brand);
-        }
+    public List<PhoneDto> getPhonesByBrand(@RequestParam(name="brand", required = false) String brandName,
+                                           @RequestParam(name="year", required = false) Integer year,
+                                           @RequestParam(name="ram", required = false) String ram){
+
+        List<PhoneDto> phones = phoneService.getPhonesByCharacteristics(brandName, ram, year);
 
         return phones;
     }

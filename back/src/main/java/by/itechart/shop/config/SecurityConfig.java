@@ -33,15 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/signin").permitAll()
+//                .antMatchers(HttpMethod.POST, "/signin").permitAll()
                 .antMatchers("/myshop/**").hasRole("admin")
 //                .antMatchers(HttpMethod.GET, "/cart/**").authenticated()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             .and()
             .apply(new JwtConfigurer(jwtTokenProvider));
         //@formatter:on
     }
-
 
 }
 

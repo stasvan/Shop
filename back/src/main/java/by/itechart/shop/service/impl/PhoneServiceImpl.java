@@ -7,6 +7,7 @@ import by.itechart.shop.service.PhoneService;
 import by.itechart.shop.service.dto.PhoneDto;
 import by.itechart.shop.service.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,6 +23,9 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Autowired
     private ProductServiceImpl productService;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     public List<PhoneDto> getAllPhones() {
         List<Phone> phones = phoneRepository.findAll();
@@ -39,8 +43,10 @@ public class PhoneServiceImpl implements PhoneService {
         return phoneDto;
     }
 
-    public List<PhoneDto> getPhonesByBrand(String name) {
-        List<Phone> phones = phoneRepository.findPhonesByBrandName(name);
+    public List<PhoneDto> getPhonesByCharacteristics(String brandName, String ram, Integer year) {
+
+        List<Phone> phones = phoneRepository.findPhonesByBrandNameAndRamAndYearNamedParams(brandName, ram, year);
+
         List<PhoneDto> phonesDto = new ArrayList<>();
         for (Phone phone: phones) {
             phonesDto.add(createPhoneDto(phone));
@@ -61,6 +67,7 @@ public class PhoneServiceImpl implements PhoneService {
         phoneDto.setRam(phone.getRam());
         phoneDto.setScreenResolution(phone.getScreenResolution());
         phoneDto.setScreenTechnology(phone.getScreenTechnology());
+        phoneDto.setCamera(phone.getCamera());
         phoneDto.setImageName("http://localhost:8090/image/phone/" + phone.getBrand().getName() + "/" + phone.getImageName());
         return phoneDto;
     }

@@ -16,6 +16,10 @@ public class BrandServiceImpl {
         return brandRepository.findBrandById(id);
     }
 
+    public Brand getBrandByName(String name){
+        return brandRepository.findBrandByName(name);
+    }
+
 
     public BrandDto createBrandDto(Brand brand){
         BrandDto brandDto = new BrandDto();

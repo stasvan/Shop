@@ -18,6 +18,7 @@ public class Phone {
     private String screenTechnology;
     private String cpu;
     private String ram;
+    private String camera;
     private String imageName;
 
     @OneToOne
@@ -45,6 +46,22 @@ public class Phone {
         this.product = product;
         this.brand = brand;
         this.imageName = imageName;
+    }
+
+    public Phone(String model, Integer year, String screenResolution,
+                 String screenTechnology, String cpu, String ram,
+                 String camera, String imageName, Product product,
+                 Brand brand) {
+        this.model = model;
+        this.year = year;
+        this.screenResolution = screenResolution;
+        this.screenTechnology = screenTechnology;
+        this.cpu = cpu;
+        this.ram = ram;
+        this.camera = camera;
+        this.imageName = imageName;
+        this.product = product;
+        this.brand = brand;
     }
 
     public Integer getId() {
@@ -101,6 +118,14 @@ public class Phone {
 
     public void setRam(String ram) {
         this.ram = ram;
+    }
+
+    public String getCamera() {
+        return camera;
+    }
+
+    public void setCamera(String camera) {
+        this.camera = camera;
     }
 
     public Product getProduct() {
