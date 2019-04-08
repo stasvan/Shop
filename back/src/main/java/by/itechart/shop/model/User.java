@@ -1,16 +1,6 @@
 package by.itechart.shop.model;
 
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Entity
 @Table(name = "user")
@@ -21,7 +11,7 @@ public class User {
 
     private String role;
 
-    private String username;
+    private String email;
     private String password;
 
     @OneToOne(mappedBy = "user")
@@ -30,9 +20,9 @@ public class User {
     public User() {
     }
 
-    public User(String role, String username, String password) {
+    public User(String role, String email, String password) {
         this.role = role;
-        this.username = username;
+        this.email = email;
         this.password = password;
     }
 
@@ -60,12 +50,12 @@ public class User {
         return password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 

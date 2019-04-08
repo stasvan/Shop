@@ -7,15 +7,15 @@ import './registration.scss'
 
 
 class Registration extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            first_name: '',
-            last_name: '',
-            email: '',
-            password: ''
-        }
-    }
+
+    state = {
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        role: ''
+    };
+
 
     render() {
         return (
@@ -48,6 +48,12 @@ class Registration extends Component {
                             onChange={(event, newValue) => this.setState({password: newValue})}
                         />
                         <br/>
+                        <TextField
+                            hintText="Enter your role"
+                            floatingLabelText="Role"
+                            onChange={(event, newValue) => this.setState({role: newValue})}
+                        />
+                        <br/>
                         <Button variant="contained" color="primary" onClick={(event) => this.handleClick(event)}>
                             Primary
                         </Button>
@@ -60,6 +66,28 @@ class Registration extends Component {
 
     handleClick(event){
 
+        const {email, password, role} = this.state;
+
+        if ((email !== '') || (role !== '') || (password !== '') ){
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            const myInit = { method: 'POST',
+                headers: myHeaders,
+                body: JSON.stringify({
+                    email: this.state.email,
+                    password: this.state.password,
+                    role: this.state.role
+
+                })
+            };
+            console.log(myInit.body);
+            fetch('http://localhost:8090/registration', myInit)
+                .then(function(res){ return res.json(); })
+                .then(function(data){
+                    alert( JSON.stringify( data.message ));
+                })
+        }
     }
 }
 

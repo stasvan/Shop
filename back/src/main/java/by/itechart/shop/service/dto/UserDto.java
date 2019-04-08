@@ -1,14 +1,9 @@
 package by.itechart.shop.service.dto;
 
-import by.itechart.shop.model.Shop;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,15 +12,16 @@ public class UserDto implements UserDetails {
 
     private Integer id;
     private String role;
-    private String username;
+    private String email;
     private String password;
 
     public UserDto() {
     }
 
-    public UserDto(String role, String username, String password) {
+    public UserDto(Integer id, String role, String email, String password) {
+        this.id = id;
         this.role = role;
-        this.username = username;
+        this.email = email;
         this.password = password;
     }
 
@@ -55,11 +51,13 @@ public class UserDto implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getEmail() { return email;}
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

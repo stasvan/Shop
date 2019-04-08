@@ -12,17 +12,27 @@ public class UserServiceImpl {
     @Autowired
     UserRepository userRepository;
 
-    public UserDto getUserByUsername(String name) {
-        User user = userRepository.findByUsername(name);
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
         UserDto userDto = createUserDto(user);
         return userDto;
+    }
+
+    public User createUser(String email, String password, String role){
+        User user = new User();
+
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setRole(role);
+
+        return user;
     }
 
     public UserDto createUserDto(User user){
         UserDto userDto = new UserDto();
 
         userDto.setId(user.getId());
-        userDto.setUsername(user.getUsername());
+        userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPassword());
         userDto.setRole(user.getRole());
 

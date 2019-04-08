@@ -1,6 +1,7 @@
 package by.itechart.shop.controller;
 
 import by.itechart.shop.controller.request.AuthenticationRequest;
+import by.itechart.shop.controller.request.RegistrationRequest;
 import by.itechart.shop.repository.UserRepository;
 import by.itechart.shop.security.jwt.JwtTokenProvider;
 import by.itechart.shop.service.impl.UserServiceImpl;
@@ -22,7 +23,7 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-public class SignInController {
+public class RegistrationController {
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -39,24 +40,24 @@ public class SignInController {
     @Autowired
     UserServiceImpl userService;
 
-    @PostMapping("/signin")
+    @PostMapping("/registration")
     @CrossOrigin("http://localhost:3000")
-    public ResponseEntity signIn(@RequestBody AuthenticationRequest data) {
+    public ResponseEntity signUp(@RequestBody RegistrationRequest data) {
         try {
+            System.out.println(data);
             String email = data.getEmail();
-            String password = data.getPassword();
+            String password = passwordEncoder.encode(data.getPassword());
+            String name = data.getName();
+            String lastName = data.getLastName();
+            String role = data.getRole();
 
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
-            System.out.println(email + " " + password);
-
-            String token = jwtTokenProvider.createToken(email, userService.getUserByEmail(email).getRole());
-            System.out.println(token);
             Map<Object, Object> model = new HashMap<>();
-            model.put("email", email);
-            model.put("token", token);
+            userRepository.save(userService.createUser(email, password, role));
+            String message = email + " user is created";
+            model.put("message", message);
             return ok(model);
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid email/password supplied");
+            throw new BadCredentialsException("Invalid username/password supplied");
         }
     }
 }

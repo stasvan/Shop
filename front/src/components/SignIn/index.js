@@ -52,7 +52,7 @@ class SignIn extends Component {
         const myInit = { method: 'POST',
             headers: myHeaders,
             body: JSON.stringify({
-                username: this.state.email,
+                email: this.state.email,
                 password: this.state.password
             })
         };
