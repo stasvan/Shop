@@ -16,6 +16,32 @@ class Registration extends Component {
         role: ''
     };
 
+    handleRegistrationClick(event){
+
+        const {email, password, role} = this.state;
+
+        if ((email !== '') || (role !== '') || (password !== '') ){
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            const myInit = { method: 'POST',
+                headers: myHeaders,
+                body: JSON.stringify({
+                    email: this.state.email,
+                    password: this.state.password,
+                    role: this.state.role
+
+                })
+            };
+
+            fetch('http://localhost:8090/registration', myInit)
+                .then(function(res){ return res.json(); })
+                .then(function(data){
+                    alert( JSON.stringify( data.message ));
+                });
+
+        }
+    }
 
     render() {
         return (
@@ -54,7 +80,7 @@ class Registration extends Component {
                             onChange={(event, newValue) => this.setState({role: newValue})}
                         />
                         <br/>
-                        <Button variant="contained" color="primary" onClick={(event) => this.handleClick(event)}>
+                        <Button variant="contained" color="primary" onClick={(event) => this.handleRegistrationClick(event)}>
                             Primary
                         </Button>
 
@@ -64,31 +90,6 @@ class Registration extends Component {
         );
     }
 
-    handleClick(event){
-
-        const {email, password, role} = this.state;
-
-        if ((email !== '') || (role !== '') || (password !== '') ){
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            const myInit = { method: 'POST',
-                headers: myHeaders,
-                body: JSON.stringify({
-                    email: this.state.email,
-                    password: this.state.password,
-                    role: this.state.role
-
-                })
-            };
-            console.log(myInit.body);
-            fetch('http://localhost:8090/registration', myInit)
-                .then(function(res){ return res.json(); })
-                .then(function(data){
-                    alert( JSON.stringify( data.message ));
-                })
-        }
-    }
 }
 
 export default Registration;

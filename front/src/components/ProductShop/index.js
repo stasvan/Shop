@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import './productShop.scss';
-import {NavLink} from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 class ProductShop extends Component {
@@ -10,7 +9,7 @@ class ProductShop extends Component {
         const {productShop} = this.props;
         return(
             <div className="productShop">
-                <img className="productShop__img" src={`${productShop.shop.imageName}`} />
+                <img className="productShop__img" src={`${productShop.shop.imageName}`} alt = {`${productShop.shop.name}`} />
                 <div>{productShop.shop.name}</div>
                 <div>{productShop.price}$</div>
                 <Button variant="contained" color="primary" onClick={(event) => this.handleClick(event)}>

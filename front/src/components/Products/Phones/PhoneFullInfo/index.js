@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import './phoneFullInfo.scss';
 import {getPhoneById} from "../../../../services/API/phones";
-import {getImage} from "../../../../services/API/image";
 import {getProductShops} from "../../../../services/API/productShops";
 import ProductShop from "../../../ProductShop"
 
@@ -56,7 +55,7 @@ class PhoneFullInfo extends Component{
                 </div>
                 <div className="pic">
                     <h3>Picture</h3>
-                    <img className="pic__img" src={`${phone.imageName}`} />
+                    <img className="pic__img" src={`${phone.imageName}`} alt={`${phone.model}`} />
                 </div>
                 <div>
                 {
