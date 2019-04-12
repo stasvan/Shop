@@ -31,9 +31,6 @@ public class SignInController {
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired

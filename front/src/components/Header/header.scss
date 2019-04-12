@@ -5,7 +5,12 @@
   &__main {
     &__nav {
       margin-left: 10px;
+      margin-right: 10px;
       color: black;
+    }
+    &__right {
+      float: right;
+      margin-right: 10px;
     }
     height: 35px;
     background-color: aqua;

@@ -1,6 +1,8 @@
 package by.itechart.shop.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -16,6 +18,9 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Shop shop;
+
+    @OneToMany(mappedBy = "user")
+    private List<CartItem> cartItems = new ArrayList<CartItem>();
 
     public User() {
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
 import Header from './components/Header'
 import PhoneList from './components/Products/Phones/PhoneList'
@@ -17,14 +17,15 @@ class App extends Component {
     };
 
     componentDidMount() {
-        const cookie = new Cookies();
-        cookie.get("email");
-        if(typeof cookie.cookies.email == "undefined"){
+        // const cookie = new Cookies();
+        // cookie.get("email");
+        const email = localStorage.getItem("email");
+        if(email == null){
             console.log("email undef")
         }
         else {
-            console.log(cookie.cookies.email)
-            this.updateEmail(cookie.cookies.email)
+            console.log(email);
+            this.updateEmail(email)
         }
     }
 

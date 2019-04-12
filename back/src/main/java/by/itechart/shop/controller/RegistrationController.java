@@ -32,9 +32,6 @@ public class RegistrationController {
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -52,7 +49,8 @@ public class RegistrationController {
             String role = data.getRole();
 
             Map<Object, Object> model = new HashMap<>();
-            userRepository.save(userService.createUser(email, password, role));
+
+            userService.saveUserDto(userService.createUserDto(email, password, role));
             String message = email + " user is created";
             model.put("message", message);
             return ok(model);

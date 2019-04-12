@@ -2,6 +2,7 @@ package by.itechart.shop.service.impl;
 
 
 import by.itechart.shop.model.Shop;
+import by.itechart.shop.model.User;
 import by.itechart.shop.service.dto.ShopDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,13 @@ public class ShopServiceImpl {
         ShopDto shopDto = new ShopDto();
 
         shopDto.setId(shop.getId());
-        shopDto.setUser(userService.createUserDto(shop.getUser()));
+        User user = shop.getUser();
+        shopDto.setUser(userService.createUserDto(
+                user.getId(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole()
+        ));
         shopDto.setName(shop.getName());
         shopDto.setAddress(addressService.createAddressDto(shop.getAddress()));
         shopDto.setPhoneNumber(shop.getPhoneNumber());

@@ -2,6 +2,8 @@ package by.itechart.shop.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -19,6 +21,9 @@ public class ProductShop {
     @ManyToOne
     @JoinColumn(name = "shop_id")
     private Shop shop;
+
+    @OneToMany(mappedBy = "productShop")
+    private List<CartItem> cartItems = new ArrayList<CartItem>();
 
     private BigDecimal price;
 

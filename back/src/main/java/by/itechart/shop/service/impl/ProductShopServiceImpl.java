@@ -24,6 +24,10 @@ public class ProductShopServiceImpl {
     @Autowired
     ShopServiceImpl shopService;
 
+    public ProductShop getProductShopById(Integer productShopId){
+        return productShopRepository.findProductShopById(productShopId);
+    }
+
     public List<ProductShopDto> getProductShopsByProductId(Integer id) {
         List<ProductShop> productShops = productShopRepository.findProductShopsByProductId(id);
         List<ProductShopDto> productShopsDto = new ArrayList<>();

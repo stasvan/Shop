@@ -35,7 +35,7 @@ class SignIn extends Component {
             })
         };
 
-        const cookies = new Cookies();
+        // const cookies = new Cookies();
         const {updateEmail} = this.props;
         fetch('http://localhost:8090/signin', myInit)
             .then(function(res){ return res.json(); })
@@ -46,7 +46,7 @@ class SignIn extends Component {
                 else {
                     localStorage.setItem('user-jwt', data.token);
                     updateEmail(data.email);
-                    cookies.set('email', data.email, {path: '/'});
+                    localStorage.setItem('email', data.email);
                 }
             });
 

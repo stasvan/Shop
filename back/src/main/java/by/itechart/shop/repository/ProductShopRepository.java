@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface ProductShopRepository extends JpaRepository<ProductShop, Integer> {
 
-    List<ProductShop> findProductShopsByProductId(Integer id);
+    List<ProductShop> findProductShopsByProductId(Integer productId);
+    ProductShop findProductShopById(Integer productShopId);
 }
