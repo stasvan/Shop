@@ -70,12 +70,15 @@ class SignIn extends Component {
                             onChange = {(event,newValue) => this.setState({password:newValue})}
                         />
                         <br/>
-                        <Button variant="contained" color="primary"  onClick={(event) => this.handleLogInClick(event)}>
+                        <Button variant="contained" color="secondary"  onClick={(event) => this.handleLogInClick(event)}>
                             Submit
                         </Button>
                         <br/>
-                        {/*<RaisedButton className="reg" primary={true} label="Registration" containerElement={<NavLink to="/registration"/>} />*/}
-                        <NavLink className="reg" to={"/registration"}>Registration</NavLink>
+                        <NavLink className="reg" to={"/registration"} style={{ textDecoration: 'none' }}>
+                            <Button variant="contained" to={"/registration"}>
+                                Registration
+                            </Button>
+                        </NavLink>
                     </div>
                 </MuiThemeProvider>
             </div>

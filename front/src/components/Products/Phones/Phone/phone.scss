@@ -1,12 +1,30 @@
-.phone {
-  background-color: bisque;
-  color: black;
-  width: 400px;
-  height: 100px;
-  border: 1px solid blueviolet;
-  margin: 5px;
+
+.characteristics {
+  float: left;
+  margin: 2% 2%;
+  width: 47%;
+}
+
+.phonePic {
+  float: left;
+  margin: 1% 1%;
+  width: 47%;
+  &__img{
+    height: 180px;
+  }
 }
 
 .nav{
-  color: red;
+  background-color: #CFCECE;
+  color: #D1381A;
+  height: 200px;
+  border: 1px solid #D1381A;
+  margin: 5px;
+  width: 50%;
+  float: left;
 }
+.nav:hover {
+  border: 1px solid black;
+  color: black;
+}
+

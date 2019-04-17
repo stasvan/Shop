@@ -12,7 +12,7 @@ class ProductShop extends Component {
                 <img className="productShop__img" src={`${productShop.shop.imageName}`} alt = {`${productShop.shop.name}`} />
                 <div>{productShop.shop.name}</div>
                 <div>{productShop.price}$</div>
-                <Button variant="contained" color="primary" onClick={(event) => this.handleClick(event)}>
+                <Button variant="contained"  onClick={(event) => this.handleClick(event)}>
                     Add to cart
                 </Button>
                 {/*<div>{productShop.shop.description}</div>*/}

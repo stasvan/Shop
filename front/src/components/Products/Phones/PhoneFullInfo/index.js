@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
 import './phoneFullInfo.scss';
-import {getPhoneById} from "../../../../services/API/phones";
-import {getProductShops} from "../../../../services/API/productShops";
+import {getPhoneById} from "../../../../services/API/phone";
+import {getProductShops} from "../../../../services/API/productShop";
 import ProductShop from "../../../ProductShop"
 
 class PhoneFullInfo extends Component{
@@ -40,7 +40,7 @@ class PhoneFullInfo extends Component{
 
         return(
             <div>
-                <div className="phoneCharacteristics">
+                <section className="phoneCharacteristics">
                     <h3>Characteristics</h3>
                     <ul>
                         <li className="phoneCharacteristics__characteristic">{phone.brand.name}</li>
@@ -52,11 +52,11 @@ class PhoneFullInfo extends Component{
                         <li className="phoneCharacteristics__characteristic">{phone.ram}</li>
                         <li className="phoneCharacteristics__characteristic">{phone.camera}</li>
                     </ul>
-                </div>
-                <div className="pic">
+                </section>
+                <section className="pic">
                     <h3>Picture</h3>
                     <img className="pic__img" src={`${phone.imageName}`} alt={`${phone.model}`} />
-                </div>
+                </section>
                 <div>
                 {
                     productShops.map(productShop =>

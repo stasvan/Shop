@@ -1,21 +1,22 @@
 .header {
-
   width: 100%;
 
   &__main {
     &__nav {
       margin-left: 10px;
       margin-right: 10px;
-      color: black;
+      color: #E3E3E3;
     }
     &__right {
       float: right;
       margin-right: 10px;
     }
     height: 35px;
-    background-color: aqua;
+    background-color: #999694;
     color: coral;
-
+    &__button{
+      margin-top: 2px;
+    }
   }
   &__categories {
     &__nav {
@@ -26,6 +27,15 @@
     height: 35px;
     display: inline-flex;
     justify-content: space-around;
-    background-color: antiquewhite;
+    background-color: #EB8470;
   }
+}
+
+.header__main__nav:hover {
+  color: black;
+}
+
+.header__categories__nav:hover {
+  color: #817E7E;
+
 }
