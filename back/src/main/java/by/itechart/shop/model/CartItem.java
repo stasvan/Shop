@@ -19,16 +19,14 @@ public class CartItem {
     private User user;
 
     private BigDecimal fixedPrice;
-    private Integer itemCount;
 
     public CartItem() {
     }
 
-    public CartItem(ProductShop productShop, User user, BigDecimal fixedPrice, Integer itemCount) {
+    public CartItem(ProductShop productShop, User user, BigDecimal fixedPrice) {
         this.productShop = productShop;
         this.user = user;
         this.fixedPrice = fixedPrice;
-        this.itemCount = itemCount;
     }
 
     public Integer getId() {
@@ -63,11 +61,4 @@ public class CartItem {
         this.fixedPrice = fixedPrice;
     }
 
-    public Integer getItemCount() {
-        return itemCount;
-    }
-
-    public void setItemCount(Integer itemCount) {
-        this.itemCount = itemCount;
-    }
 }

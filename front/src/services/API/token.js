@@ -14,7 +14,6 @@ export const validateToken = (token) => {
     return fetch('http://localhost:8090/validateJwt', myInit)
         .then(data => data.json())
         .then((data) => {
-            console.log(data.message);
             return data.message
         });
 };

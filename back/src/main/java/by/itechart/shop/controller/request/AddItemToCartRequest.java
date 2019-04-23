@@ -16,7 +16,6 @@ public class AddItemToCartRequest implements Serializable {
     private Integer userId;
     private Integer productShopId;
     private BigDecimal fixedPrice;
-    private Integer itemCount;
 
     public Integer getUserId() {
         return userId;
@@ -42,11 +41,4 @@ public class AddItemToCartRequest implements Serializable {
         this.fixedPrice = fixedPrice;
     }
 
-    public Integer getItemCount() {
-        return itemCount;
-    }
-
-    public void setItemCount(Integer itemCount) {
-        this.itemCount = itemCount;
-    }
 }

@@ -47,10 +47,12 @@ public class SignInController {
             System.out.println(email + " " + password);
 
             String token = jwtTokenProvider.createToken(email, userService.getUserByEmail(email).getRole());
+            Integer id = userService.getUserIdByEmail(email);
             System.out.println(token);
             Map<Object, Object> model = new HashMap<>();
             model.put("email", email);
             model.put("token", token);
+            model.put("id", id);
             return ok(model);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid email/password supplied");

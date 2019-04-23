@@ -16,7 +16,7 @@ public class Address {
     private String city;
     private String street;
     private String house;
-    private Integer apartment;
+    private String apartment;
 
     @OneToMany(mappedBy = "address")
     private List<Shop> shops = new ArrayList<Shop>();
@@ -28,7 +28,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(String country, String city, String street, String house, Integer apartment) {
+    public Address(String country, String city, String street, String house, String apartment) {
         this.country = country;
         this.city = city;
         this.street = street;
@@ -83,11 +83,11 @@ public class Address {
         this.house = house;
     }
 
-    public Integer getApartment() {
+    public String getApartment() {
         return apartment;
     }
 
-    public void setApartment(Integer apartment) {
+    public void setApartment(String apartment) {
         this.apartment = apartment;
     }
 }

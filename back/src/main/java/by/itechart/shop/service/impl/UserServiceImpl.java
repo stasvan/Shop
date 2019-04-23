@@ -17,7 +17,11 @@ public class UserServiceImpl {
     }
 
     public UserDto getUserByEmail(String email) {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findUserByEmail(email);
+        if (user == null){
+            return null;
+        }
+
         UserDto userDto = createUserDto(
                 user.getId(),
                 user.getEmail(),
@@ -25,6 +29,10 @@ public class UserServiceImpl {
                 user.getRole()
         );
         return userDto;
+    }
+
+    public Integer getUserIdByEmail(String email){
+        return userRepository.findUserByEmail(email).getId();
     }
 
     private User createUser(String email, String password, String role){
@@ -48,7 +56,7 @@ public class UserServiceImpl {
         userRepository.save(user);
     }
 
-    //with id for GET from front
+    //with id for GET
     public UserDto createUserDto(Integer id, String email, String password, String role){
         UserDto userDto = new UserDto();
         userDto.setId(id);
@@ -58,13 +66,45 @@ public class UserServiceImpl {
         return userDto;
     }
 
-    //without id for POST from front
+    //without id for POST
     public UserDto createUserDto(String email, String password, String role){
         UserDto userDto = new UserDto();
         userDto.setEmail(email);
         userDto.setPassword(password);
         userDto.setRole(role);
         return userDto;
+    }
+
+    public String validateUserData(String role, String email, String password){
+        String message = "ok";
+
+        if ((email.length() < 8) || (email.length() > 36)) {
+            message = "Bad email";
+            return message;
+        }
+
+        if ((password.length() < 6) || (password.length() > 36)) {
+            message = "Bad password";
+            return message;
+        }
+
+        if (!role.equals("admin") && !role.equals("user")) {
+            message = "Bad role";
+            return message;
+        }
+
+        return message;
+    }
+
+    public String verifyEmail(String email){
+        String message = "ok";
+
+        if (getUserByEmail(email) != null) {
+            message = "Email is already exists";
+            return message;
+        }
+
+        return message;
     }
 
 }

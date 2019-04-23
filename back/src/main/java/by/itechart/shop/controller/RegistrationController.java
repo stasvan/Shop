@@ -4,8 +4,12 @@ import by.itechart.shop.controller.request.AuthenticationRequest;
 import by.itechart.shop.controller.request.RegistrationRequest;
 import by.itechart.shop.repository.UserRepository;
 import by.itechart.shop.security.jwt.JwtTokenProvider;
+import by.itechart.shop.service.impl.AccountServiceImpl;
+import by.itechart.shop.service.impl.AddressServiceImpl;
+import by.itechart.shop.service.impl.RegistrationServiceImpl;
 import by.itechart.shop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,30 +36,30 @@ public class RegistrationController {
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
-    UserServiceImpl userService;
+    RegistrationServiceImpl registrationService;
 
     @PostMapping("/registration")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity signUp(@RequestBody RegistrationRequest data) {
-        try {
-            System.out.println(data);
-            String email = data.getEmail();
-            String password = passwordEncoder.encode(data.getPassword());
-            String name = data.getName();
-            String lastName = data.getLastName();
-            String role = data.getRole();
+        System.out.println(data);
 
-            Map<Object, Object> model = new HashMap<>();
+        String email = data.getEmail();
+        String password = data.getPassword();
+        String role = data.getRole();
+        String name = data.getName();
+        String surname = data.getSurname();
+        String phone = data.getPhone();
 
-            userService.saveUserDto(userService.createUserDto(email, password, role));
-            String message = email + " user is created";
-            model.put("message", message);
-            return ok(model);
-        } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username/password supplied");
-        }
+        String country = data.getCountry();
+        String city = data.getCity();
+        String street = data.getStreet();
+        String house = data.getHouse();
+        String apartment = data.getApartment();
+
+        return registrationService.registration(
+                email, password, role,
+                name, surname, phone,
+                country, city, street, house, apartment
+                );
     }
 }

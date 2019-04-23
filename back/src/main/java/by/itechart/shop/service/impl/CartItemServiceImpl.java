@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service("cartItemService")
-public class CartItemService {
+public class CartItemServiceImpl {
 
     @Autowired
     ProductShopServiceImpl productShopService;
@@ -21,10 +21,9 @@ public class CartItemService {
     UserServiceImpl userService;
 
     public CartItemDto createCartItemDto(Integer userId, Integer productShopId,
-                                         BigDecimal fixedPrice, Integer itemCount){
+                                         BigDecimal fixedPrice){
         CartItemDto cartItemDto = new CartItemDto();
         cartItemDto.setFixedPrice(fixedPrice);
-        cartItemDto.setItemCount(itemCount);
         cartItemDto.setProductShopId(productShopId);
         cartItemDto.setUserId(userId);
         return cartItemDto;
@@ -34,20 +33,29 @@ public class CartItemService {
         CartItem cartItem = createCartItem(
                 cartItemDto.getProductShopId(),
                 cartItemDto.getUserId(),
-                cartItemDto.getFixedPrice(),
-                cartItemDto.getItemCount()
+                cartItemDto.getFixedPrice()
         );
         cartItemRepository.save(cartItem);
     }
 
     public CartItem createCartItem(Integer productShopId, Integer userId,
-                                   BigDecimal fixedPrice, Integer itemCount){
+                                   BigDecimal fixedPrice){
         return new CartItem(
                 productShopService.getProductShopById(productShopId),
                 userService.getUserById(userId),
-                fixedPrice,
-                itemCount
+                fixedPrice
         );
+    }
+
+    public Boolean isCartItemExist(Integer userId, Integer productShopId){
+
+        Boolean isExist;
+        if (cartItemRepository.findCartItemByProductShopIdAndUserId(productShopId, userId) == null){
+            isExist = false;
+        } else {
+            isExist = true;
+        }
+        return isExist;
     }
 
 }

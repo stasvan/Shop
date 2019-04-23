@@ -1,13 +1,6 @@
-export const getPhones = () =>
-    fetch('http://localhost:8090/phones')
-        .then(data => data.json())
-        .then((data) => {
-            //console.log(data);
-            return data });
 
-
-export const doRegistration = (role, email, password) => {
-
+export const doRegistration = (role, email, password, name, surname, phone,
+                               country, city, street, house, apartment) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -17,15 +10,23 @@ export const doRegistration = (role, email, password) => {
         body: JSON.stringify({
             email: email,
             password: password,
-            role: role
+            role: role,
+            name: name,
+            surname: surname,
+            phone: phone,
+            country: country,
+            city: city,
+            street: street,
+            house: house,
+            apartment: apartment,
         })
     };
 
-    fetch('http://localhost:8090/registration', myInit)
+    return fetch('http://localhost:8090/registration', myInit)
         .then(function (res) {
             return res.json();
         })
         .then(function (data) {
-            alert(JSON.stringify(data.message));
+            return JSON.stringify(data.message);
         });
 };

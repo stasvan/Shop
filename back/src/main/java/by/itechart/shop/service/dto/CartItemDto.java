@@ -10,17 +10,15 @@ public class CartItemDto {
     private Integer userId;
 
     private BigDecimal fixedPrice;
-    private Integer itemCount;
 
     public CartItemDto() {
     }
 
-    public CartItemDto(Integer id, Integer productShopId, Integer userId, BigDecimal fixedPrice, Integer itemCount) {
+    public CartItemDto(Integer id, Integer productShopId, Integer userId, BigDecimal fixedPrice) {
         this.id = id;
         this.productShopId = productShopId;
         this.userId = userId;
         this.fixedPrice = fixedPrice;
-        this.itemCount = itemCount;
     }
 
     public Integer getId() {
@@ -55,11 +53,4 @@ public class CartItemDto {
         this.fixedPrice = fixedPrice;
     }
 
-    public Integer getItemCount() {
-        return itemCount;
-    }
-
-    public void setItemCount(Integer itemCount) {
-        this.itemCount = itemCount;
-    }
 }

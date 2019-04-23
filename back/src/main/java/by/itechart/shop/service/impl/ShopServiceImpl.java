@@ -1,6 +1,7 @@
 package by.itechart.shop.service.impl;
 
 
+import by.itechart.shop.model.Address;
 import by.itechart.shop.model.Shop;
 import by.itechart.shop.model.User;
 import by.itechart.shop.service.dto.ShopDto;
@@ -32,7 +33,15 @@ public class ShopServiceImpl {
                 user.getRole()
         ));
         shopDto.setName(shop.getName());
-        shopDto.setAddress(addressService.createAddressDto(shop.getAddress()));
+        Address address = shop.getAddress();
+        shopDto.setAddress(addressService.createAddressDto(
+                address.getId(),
+                address.getCountry(),
+                address.getCity(),
+                address.getStreet(),
+                address.getHouse(),
+                address.getApartment()
+                ));
         shopDto.setPhoneNumber(shop.getPhoneNumber());
         shopDto.setDescription(shop.getDescription());
         shopDto.setImageName("http://localhost:8090/image/shop/" + shop.getImageName());

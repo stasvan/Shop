@@ -22,7 +22,7 @@ public class TokenValidationController {
 
     @PostMapping("/validateJwt")
     @CrossOrigin("http://localhost:3000")
-    public ResponseEntity signIn(@RequestBody TokenRequest data) {
+    public ResponseEntity validateJwt(@RequestBody TokenRequest data) {
         String token = data.getToken();
         System.out.println(token + " came");
         Map<Object, Object> model = new HashMap<>();

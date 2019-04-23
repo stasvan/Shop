@@ -1,62 +1,61 @@
 import React, {Component} from 'react';
 import {NavLink} from "react-router-dom";
-import Cookies from 'universal-cookie';
-
 
 import './signIn.scss';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-//import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
+
+import {doSignIn} from "../../services/API/signIn";
+
+import history from '../../services/history';
 
 class SignIn extends Component {
 
     state = {
-      email: '',
-      password: ''
+        email: '',
+        password: '',
     };
+
+    componentDidMount() {
+        const {email} = this.props;
+        console.log(email);
+        if (email !== "none"){
+            return history.push('/');
+        }
+    }
 
     constructor(props) {
         super(props);
         this.handleLogInClick = this.handleLogInClick.bind(this);
-
     }
 
     handleLogInClick(event){
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        const myInit = { method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password
-            })
-        };
-
-        // const cookies = new Cookies();
+        const {email, password} = this.state;
         const {updateEmail} = this.props;
-        fetch('http://localhost:8090/signin', myInit)
-            .then(function(res){ return res.json(); })
-            .then(function(data){
-                alert( JSON.stringify( data ));
-                if(typeof data.email == "undefined")
-                    alert("Bad inputs");
-                else {
-                    localStorage.setItem('user-jwt', data.token);
-                    updateEmail(data.email);
-                    localStorage.setItem('email', data.email);
+        const {updateId} = this.props;
+        doSignIn(email, password)
+            .then(function (data) {
+                    if (typeof data.email == "undefined")
+                        alert("Bad inputs");
+                    else {
+                        localStorage.setItem('user-jwt', data.token);
+                        localStorage.setItem('email', data.email);
+                        localStorage.setItem('user-id', data.id);
+                        updateEmail(data.email);
+                        updateId(data.id);
+                        history.push("/");
+                    }
                 }
-            });
-
+            );
     }
 
     render() {
         return (
-            <div className="signIn">
-                <MuiThemeProvider>
-                    <div>
+            <MuiThemeProvider>
+                <div>
+                    <div className="signIn">
                         <TextField
                             hintText="Enter your Username"
                             floatingLabelText="Username"
@@ -73,15 +72,14 @@ class SignIn extends Component {
                         <Button variant="contained" color="secondary"  onClick={(event) => this.handleLogInClick(event)}>
                             Submit
                         </Button>
-                        <br/>
-                        <NavLink className="reg" to={"/registration"} style={{ textDecoration: 'none' }}>
-                            <Button variant="contained" to={"/registration"}>
+                        <NavLink className="registration" variant="contained" to={"/registration"} style={{ textDecoration: 'none' }}>
+                            <Button variant="contained" >
                                 Registration
                             </Button>
                         </NavLink>
                     </div>
-                </MuiThemeProvider>
-            </div>
+                </div>
+            </MuiThemeProvider>
         );
     }
 

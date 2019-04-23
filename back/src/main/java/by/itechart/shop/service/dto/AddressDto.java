@@ -7,12 +7,12 @@ public class AddressDto {
     private String city;
     private String street;
     private String house;
-    private Integer apartment;
+    private String apartment;
 
     public AddressDto() {
     }
 
-    public AddressDto(Integer id, String country, String city, String street, String house, Integer apartment) {
+    public AddressDto(Integer id, String country, String city, String street, String house, String apartment) {
         this.id = id;
         this.country = country;
         this.city = city;
@@ -69,11 +69,11 @@ public class AddressDto {
         this.house = house;
     }
 
-    public Integer getApartment() {
+    public String getApartment() {
         return apartment;
     }
 
-    public void setApartment(Integer apartment) {
+    public void setApartment(String apartment) {
         this.apartment = apartment;
     }
 }

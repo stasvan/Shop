@@ -14,17 +14,16 @@ import java.io.Serializable;
 public class RegistrationRequest implements Serializable {
     private String email;
     private String password;
-    private String name;
-    private String lastName;
     private String role;
+    private String name;
+    private String surname;
+    private String phone;
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+    private String country;
+    private String city;
+    private String street;
+    private String house;
+    private String apartment;
 
     public String getEmail() {
         return email;
@@ -42,6 +41,14 @@ public class RegistrationRequest implements Serializable {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }
@@ -50,11 +57,59 @@ public class RegistrationRequest implements Serializable {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house;
+    }
+
+    public String getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(String apartment) {
+        this.apartment = apartment;
     }
 }

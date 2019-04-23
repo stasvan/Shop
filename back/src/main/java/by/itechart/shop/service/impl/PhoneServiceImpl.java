@@ -24,9 +24,6 @@ public class PhoneServiceImpl implements PhoneService {
     @Autowired
     private ProductServiceImpl productService;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     public List<PhoneDto> getAllPhones() {
         List<Phone> phones = phoneRepository.findAll();
         List<PhoneDto> phonesDto = new ArrayList<>();

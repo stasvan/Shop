@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
-// import Cookies from 'universal-cookie';
 
 import './header.scss'
+
 import Button from "@material-ui/core/Button";
+
+import history from '../../services/history'
 
 class Header extends Component {
 
@@ -13,6 +15,8 @@ class Header extends Component {
         updateEmail("none");
         localStorage.removeItem("user-jwt");
         localStorage.removeItem("email");
+        history.push("/");
+
         //this.forceUpdate()
     }
 

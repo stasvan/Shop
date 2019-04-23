@@ -10,19 +10,20 @@ class PhoneFullInfo extends Component{
     state = {
         productShops: [],
         phone: {},
-        isLoading: true
+        isLoading: true,
+        productId: ""
     };
 
-    componentDidMount() {
+    async componentDidMount() {
         const id = this.props.match.params.phoneId;
         //console.log(id);
-        getPhoneById(id)
+        await getPhoneById(id)
             .then(data => this.setState({
                 phone: data,
+                productId: data.product.id,
                 isLoading: false
             }));
-
-        getProductShops(id)
+        getProductShops(this.state.productId)
             .then(data => this.setState({
                 productShops: data,
             }));
@@ -53,9 +54,9 @@ class PhoneFullInfo extends Component{
                         <li className="phoneCharacteristics__characteristic">{phone.camera}</li>
                     </ul>
                 </section>
-                <section className="pic">
+                <section className="ppic">
                     <h3>Picture</h3>
-                    <img className="pic__img" src={`${phone.imageName}`} alt={`${phone.model}`} />
+                    <img className="ppic__img" src={`${phone.imageName}`} alt={`${phone.model}`} />
                 </section>
                 <div>
                 {
