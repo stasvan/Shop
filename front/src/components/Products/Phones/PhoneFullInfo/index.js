@@ -5,6 +5,9 @@ import {getPhoneById} from "../../../../services/API/phone";
 import {getProductShops} from "../../../../services/API/productShop";
 import ProductShop from "../../../ProductShop"
 
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+
 class PhoneFullInfo extends Component{
 
     state = {
@@ -32,6 +35,7 @@ class PhoneFullInfo extends Component{
     render() {
         const {phone, isLoading} = this.state;
         const {productShops} = this.state;
+        const backgroundColor = "#EDEDED";
         //console.log(phone.id);
         //console.log(phone);
 
@@ -41,7 +45,7 @@ class PhoneFullInfo extends Component{
 
         return(
             <div>
-                <section className="phoneCharacteristics">
+                <Card className="phoneCharacteristics" style={{backgroundColor}}>
                     <h3>Characteristics</h3>
                     <ul>
                         <li className="phoneCharacteristics__characteristic">{phone.brand.name}</li>
@@ -53,11 +57,11 @@ class PhoneFullInfo extends Component{
                         <li className="phoneCharacteristics__characteristic">{phone.ram}</li>
                         <li className="phoneCharacteristics__characteristic">{phone.camera}</li>
                     </ul>
-                </section>
-                <section className="ppic">
+                </Card>
+                <Card className="ppic" style={{backgroundColor}}>
                     <h3>Picture</h3>
                     <img className="ppic__img" src={`${phone.imageName}`} alt={`${phone.model}`} />
-                </section>
+                </Card>
                 <div>
                 {
                     productShops.map(productShop =>

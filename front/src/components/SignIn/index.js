@@ -34,7 +34,6 @@ class SignIn extends Component {
     handleLogInClick(event){
         const {email, password} = this.state;
         const {updateEmail} = this.props;
-        const {updateId} = this.props;
         doSignIn(email, password)
             .then(function (data) {
                     if (typeof data.email == "undefined")
@@ -42,9 +41,7 @@ class SignIn extends Component {
                     else {
                         localStorage.setItem('user-jwt', data.token);
                         localStorage.setItem('email', data.email);
-                        localStorage.setItem('user-id', data.id);
                         updateEmail(data.email);
-                        updateId(data.id);
                         history.push("/");
                     }
                 }

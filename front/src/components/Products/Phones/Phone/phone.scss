@@ -3,28 +3,30 @@
   float: left;
   margin: 1% 1%;
   width: 40%;
+  height: 190px;
   &__img{
     height: 180px;
   }
 }
 
 .pchr{
-  width: 56%;
+  width: 52%;
   float: left;
-  margin: 1% 1%;
+  margin: 3% 3%;
 }
 
 .navp{
-  background-color: #CFCECE;
-  color: #D1381A;
+  //background-color: #CFCECE;
+  color: black;
   height: 200px;
-  border: 1px solid #D1381A;
+  //border: 1px solid #D1381A;
   margin: 5px;
   width: 50%;
   float: left;
 }
-.navp:hover {
-  border: 1px solid black;
-  color: black;
-}
+
+//.navp:hover {
+//  //border: 1px solid black;
+//  color: #D1381A
+//}
 

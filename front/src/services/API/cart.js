@@ -1,5 +1,5 @@
 
-export const addToCart = (userId, productShopId, fixedPrice, token) => {
+export const addToCart = (productShopId, fixedPrice, token) => {
     // const myHeaders = new Headers();
     // myHeaders.append("Content-Type", "application/json");
     // const jwt = "Bearer " + token;
@@ -12,7 +12,6 @@ export const addToCart = (userId, productShopId, fixedPrice, token) => {
             'Authorization': 'Bearer ' + token,
         },
         body: JSON.stringify({
-            userId: userId,
             productShopId: productShopId,
             fixedPrice: fixedPrice
         })
@@ -28,3 +27,10 @@ export const addToCart = (userId, productShopId, fixedPrice, token) => {
             return JSON.stringify(data.message);
         });
 };
+
+export const getCartItems = (userId) =>
+    fetch(`http://localhost:8090/cart/${userId}`)
+        .then(data => data.json())
+        .then((data) => {
+            //console.log(data);
+            return data });

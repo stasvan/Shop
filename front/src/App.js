@@ -21,21 +21,17 @@ class App extends Component {
 
     state = {
         email: "none",
-        id: "none",
         isLoading: true
     };
 
     componentDidMount() {
         const updateEmail = this.updateEmail;
-        const updateId = this.updateId;
         const updateLoading = this.updateLoading;
         const email = localStorage.getItem("email");
         const token = localStorage.getItem("user-jwt");
-        const id = localStorage.getItem("user-id");
-        if((email == null) || (token == null) || (id == null)){
+        if((email == null) || (token == null)){
             console.log("do auth");
             updateEmail("none");
-            updateId("none");
             updateLoading(false);
         }
         else {
@@ -43,13 +39,11 @@ class App extends Component {
                 console.log(message);
                 if (message === "valid") {
                     updateEmail(email);
-                    updateId(id);
                 } else {
-                    alert("Token expired, sign in");
+                    alert("Bad token, sign in");
                     updateEmail("none");
                     localStorage.removeItem("user-jwt");
                     localStorage.removeItem("email");
-                    localStorage.removeItem("user-id");
                     history.push('/signIn');
 
                 }
@@ -62,16 +56,11 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.updateEmail = this.updateEmail.bind(this);
-        this.updateId = this.updateId.bind(this);
         this.updateLoading = this.updateLoading.bind(this);
     }
 
     updateEmail(email) {
         this.setState({email: email});
-    }
-
-    updateId(id) {
-        this.setState({id: id});
     }
 
     updateLoading(state) {
@@ -119,7 +108,7 @@ class App extends Component {
                             />
                             <Route
                                 exact path='/signIn'
-                                render={(props) => <SignIn updateEmail ={this.updateEmail} updateId = {this.updateId} email={email}/>}
+                                render={(props) => <SignIn updateEmail ={this.updateEmail} email={email}/>}
                             />
                             <Route
                                 exact path='/registration'

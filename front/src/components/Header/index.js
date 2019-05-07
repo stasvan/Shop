@@ -5,7 +5,11 @@ import './header.scss'
 
 import Button from "@material-ui/core/Button";
 
-import history from '../../services/history'
+import history from '../../services/history';
+
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 class Header extends Component {
 
@@ -46,7 +50,24 @@ class Header extends Component {
                         <NavLink className="header__categories__nav" to={"/tvs"} style={{ textDecoration: 'none' }}>TVs</NavLink>
                         <NavLink className="header__categories__nav" to={"/laptops"} style={{ textDecoration: 'none' }}>Laptops</NavLink>
                     </div>
-
+            {/*    <AppBar position="static" color="default">*/}
+            {/*    <Tabs*/}
+            {/*        value={1}*/}
+            {/*        onChange={this.handleChange}*/}
+            {/*        indicatorColor="primary"*/}
+            {/*        textColor="primary"*/}
+            {/*        variant="scrollable"*/}
+            {/*        scrollButtons="auto"*/}
+            {/*    >*/}
+            {/*        <Tab label="Phones" />*/}
+            {/*        <Tab label="TVs" />*/}
+            {/*        <Tab label="Laptops" />*/}
+            {/*        /!*<Tab label="Item Four" />*!/*/}
+            {/*        /!*<Tab label="Item Five" />*!/*/}
+            {/*        /!*<Tab label="Item Six" />*!/*/}
+            {/*        /!*<Tab label="Item Seven" />*!/*/}
+            {/*    </Tabs>*/}
+            {/*</AppBar>*/}
             </div>
         );
     }
