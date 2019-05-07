@@ -26,12 +26,7 @@ public class ShopServiceImpl {
 
         shopDto.setId(shop.getId());
         User user = shop.getUser();
-        shopDto.setUser(userService.createUserDto(
-                user.getId(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getRole()
-        ));
+        shopDto.setUserId(user.getId());
         shopDto.setName(shop.getName());
         Address address = shop.getAddress();
         shopDto.setAddress(addressService.createAddressDto(

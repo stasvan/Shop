@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-public class TokenController {
+public class TokenValidationController {
 
     @Autowired
     JwtTokenProvider jwtTokenProvider;

@@ -43,23 +43,11 @@ public class RegistrationController {
     public ResponseEntity signUp(@RequestBody RegistrationRequest data) {
         System.out.println(data);
 
-        String email = data.getEmail();
-        String password = data.getPassword();
-        String role = data.getRole();
-        String name = data.getName();
-        String surname = data.getSurname();
-        String phone = data.getPhone();
-
-        String country = data.getCountry();
-        String city = data.getCity();
-        String street = data.getStreet();
-        String house = data.getHouse();
-        String apartment = data.getApartment();
-
         return registrationService.registration(
-                email, password, role,
-                name, surname, phone,
-                country, city, street, house, apartment
+                data.getEmail(), data.getPassword(), data.getRole(),
+                data.getName(), data.getSurname(), data.getPhone(),
+                data.getCountry(), data.getCity(), data.getStreet(),
+                data.getHouse(), data.getApartment()
                 );
     }
 }

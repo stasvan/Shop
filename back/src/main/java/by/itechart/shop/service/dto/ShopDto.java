@@ -4,7 +4,7 @@ public class ShopDto {
 
     private Integer id;
 
-    private UserDto user;
+    private Integer userId;
 
     private AddressDto address;
 
@@ -16,11 +16,11 @@ public class ShopDto {
     public ShopDto() {
     }
 
-    public ShopDto(Integer id, UserDto user, AddressDto address,
+    public ShopDto(Integer id, Integer userId, AddressDto address,
                    String name, String phoneNumber, String description,
                    String imageName) {
         this.id = id;
-        this.user = user;
+        this.userId = userId;
         this.address = address;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -36,12 +36,12 @@ public class ShopDto {
         this.id = id;
     }
 
-    public UserDto getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(UserDto user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public AddressDto getAddress() {

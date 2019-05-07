@@ -1,12 +1,19 @@
 package by.itechart.shop.service.impl;
 
 import by.itechart.shop.model.CartItem;
+import by.itechart.shop.model.ProductShop;
 import by.itechart.shop.repository.CartItemRepository;
+import by.itechart.shop.repository.LaptopRepository;
+import by.itechart.shop.repository.PhoneRepository;
 import by.itechart.shop.service.dto.CartItemDto;
+import by.itechart.shop.service.dto.CartItemViewDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("cartItemService")
 public class CartItemServiceImpl {
@@ -18,11 +25,33 @@ public class CartItemServiceImpl {
     CartItemRepository cartItemRepository;
 
     @Autowired
+    PhoneServiceImpl phoneService;
+
+    @Autowired
+    LaptopRepository laptopRepository;
+
+//    @Autowired
+//    TvRepository tvRepository;
+
+    @Autowired
     UserServiceImpl userService;
+
+    @Autowired
+    CartItemServiceImpl cartItemService;
 
     public CartItemDto createCartItemDto(Integer userId, Integer productShopId,
                                          BigDecimal fixedPrice){
         CartItemDto cartItemDto = new CartItemDto();
+        cartItemDto.setFixedPrice(fixedPrice);
+        cartItemDto.setProductShopId(productShopId);
+        cartItemDto.setUserId(userId);
+        return cartItemDto;
+    }
+
+    public CartItemDto createCartItemDto(Integer id, Integer userId, Integer productShopId,
+                                         BigDecimal fixedPrice){
+        CartItemDto cartItemDto = new CartItemDto();
+        cartItemDto.setId(id);
         cartItemDto.setFixedPrice(fixedPrice);
         cartItemDto.setProductShopId(productShopId);
         cartItemDto.setUserId(userId);
@@ -47,6 +76,23 @@ public class CartItemServiceImpl {
         );
     }
 
+    public List<CartItemDto> getCartItemsByUserId(Integer userId){
+        List<CartItem> cartItems = cartItemRepository.findCartItemByUserId(userId);
+
+        List<CartItemDto> cartItemsDto = new ArrayList<>();
+        if (cartItems != null){
+            for (CartItem cartItem: cartItems) {
+                cartItemsDto.add(createCartItemDto(
+                        cartItem.getId(),
+                        cartItem.getUser().getId(),
+                        cartItem.getProductShop().getId(),
+                        cartItem.getFixedPrice()
+                        ));
+            }
+        }
+        return cartItemsDto;
+    }
+
     public Boolean isCartItemExist(Integer userId, Integer productShopId){
 
         Boolean isExist;
@@ -56,6 +102,61 @@ public class CartItemServiceImpl {
             isExist = true;
         }
         return isExist;
+    }
+
+    public List<CartItemViewDto> getCartItemViewsDto(Integer userId){
+
+        List<CartItemViewDto> cartItemViewsDto = new ArrayList<>();
+
+        List<CartItemDto> cartItemsDto = cartItemService.getCartItemsByUserId(userId);
+        if (cartItemsDto != null)
+            for (CartItemDto cartItemDto: cartItemsDto) {
+                cartItemViewsDto.add(createCartItemViewDto(cartItemDto));
+            }
+        return cartItemViewsDto;
+    }
+
+    public CartItemViewDto createCartItemViewDto(CartItemDto cartItemDto){
+
+        BigDecimal price = cartItemDto.getFixedPrice();
+        Integer cartItemId = cartItemDto.getId();
+        System.out.println(cartItemId);
+
+        ProductShop productShop = productShopService.getProductShopById(cartItemDto.getProductShopId());
+        String shopName = productShop.getShop().getName();
+        Integer productId = productShop.getProduct().getId();
+        String productType = productShop.getProduct().getProductType().getName();
+
+        String brand = "";
+        String model = "";
+        Integer year = 0;
+
+        switch (productType){
+            case "phone":
+                brand = phoneService.getPhoneByProductId(productId).getBrand().getName();
+                model = phoneService.getPhoneByProductId(productId).getModel();
+                year = phoneService.getPhoneByProductId(productId).getYear();
+                break;
+//            case "laptop":
+//                brand = laptopService.getPhoneByProductId(productId).getBrand().getName();
+//                model = laptopService.getPhoneByProductId(productId).getModel();
+//                year = laptopService.getPhoneByProductId(productId).getYear();
+//                break;
+//
+//            case "tv":
+//                brand = tvService.getPhoneByProductId(productId).getBrand().getName();
+//                model = tvService.getPhoneByProductId(productId).getModel();
+//                year = tvService.getPhoneByProductId(productId).getYear();
+//                break;
+
+        }
+
+        CartItemViewDto cartItemViewDto = new CartItemViewDto(cartItemId, brand, model, year, shopName, price);
+        return cartItemViewDto;
+    }
+
+    public void deleteById(Integer id){
+        cartItemRepository.deleteById(id);
     }
 
 }

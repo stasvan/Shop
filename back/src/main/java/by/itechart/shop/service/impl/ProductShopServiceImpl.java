@@ -28,6 +28,12 @@ public class ProductShopServiceImpl {
         return productShopRepository.findProductShopById(productShopId);
     }
 
+    public ProductShopDto getProductShopDtoById(Integer productShopId){
+        return createProductShopDto(productShopRepository.findProductShopById(productShopId));
+    }
+
+
+
     public List<ProductShopDto> getProductShopsByProductId(Integer id) {
         List<ProductShop> productShops = productShopRepository.findProductShopsByProductId(id);
         List<ProductShopDto> productShopsDto = new ArrayList<>();

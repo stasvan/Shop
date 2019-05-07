@@ -4,6 +4,7 @@ import by.itechart.shop.controller.request.AddItemToCartRequest;
 import by.itechart.shop.model.ProductShop;
 import by.itechart.shop.security.jwt.JwtTokenProvider;
 import by.itechart.shop.service.dto.CartItemDto;
+import by.itechart.shop.service.dto.CartItemViewDto;
 import by.itechart.shop.service.dto.ProductShopDto;
 import by.itechart.shop.service.impl.CartItemServiceImpl;
 import by.itechart.shop.service.impl.ProductShopServiceImpl;
@@ -21,7 +22,7 @@ import java.util.Map;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-public class CartItemController {
+public class CartController {
 
     @Autowired
     CartItemServiceImpl cartItemService;
@@ -57,19 +58,21 @@ public class CartItemController {
     }
 
 
-    @GetMapping("/cart/{userId}")
+    @GetMapping("/cart")
     @CrossOrigin("http://localhost:3000")
-    public List<ProductShopDto> getCart(@PathVariable("userId") Integer userId){
+    public List<CartItemViewDto> getCart(@RequestHeader(value="Authorization") String bearerToken){
 
-        List<CartItemDto> cartItemsDto = cartItemService.getCartItemsByUserId(userId);
-        List<ProductShopDto> productShopsDto = new ArrayList<>();
-        if (cartItemsDto == null){
-            return null;
-        }
-        for (CartItemDto cartItemDto: cartItemsDto) {
-            productShopsDto.add(productShopService.getProductShopDtoById(cartItemDto.getProductShopId()));
-        }
-        return productShopsDto;
+        String token = bearerToken.substring(7, bearerToken.length());
+        Integer userId = userService.getUserIdByEmail(jwtTokenProvider.getEmail(token));
+
+        return cartItemService.getCartItemViewsDto(userId);
+
+    }
+
+    @DeleteMapping("/cart")
+    @CrossOrigin("http://localhost:3000")
+    public void deleteCartItem(@RequestBody Integer cartItemId) {
+        cartItemService.deleteById(cartItemId);
     }
 
 }

@@ -40,6 +40,12 @@ public class PhoneServiceImpl implements PhoneService {
         return phoneDto;
     }
 
+    public PhoneDto getPhoneByProductId(Integer productId) {
+        Phone phone = phoneRepository.findPhoneByProductId(productId);
+        PhoneDto phoneDto = createPhoneDto(phone);
+        return phoneDto;
+    }
+
     public List<PhoneDto> getPhonesByCharacteristics(String brandName, String ram, Integer year) {
 
         List<Phone> phones = phoneRepository.findPhonesByBrandNameAndRamAndYearNamedParams(brandName, ram, year);

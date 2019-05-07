@@ -13,17 +13,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddItemToCartRequest implements Serializable {
-    private Integer userId;
     private Integer productShopId;
     private BigDecimal fixedPrice;
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public Integer getProductShopId() {
         return productShopId;
