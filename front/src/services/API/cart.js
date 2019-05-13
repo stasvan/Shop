@@ -1,5 +1,5 @@
 
-export const addToCart = (productShopId, fixedPrice, token) => {
+export const addItemToCart = (productShopId, fixedPrice, token) => {
     // const myHeaders = new Headers();
     // myHeaders.append("Content-Type", "application/json");
     // const jwt = "Bearer " + token;
@@ -28,9 +28,35 @@ export const addToCart = (productShopId, fixedPrice, token) => {
         });
 };
 
-export const getCartItems = (userId) =>
-    fetch(`http://localhost:8090/cart/${userId}`)
+export const getCartItems = (token) => {
+
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + token);
+
+    return fetch('http://localhost:8090/cart', {
+        method: "GET",
+        headers: myHeaders
+    })
         .then(data => data.json())
         .then((data) => {
             //console.log(data);
             return data });
+};
+
+export const deleteItemFromCart = (token, cartItemId) => {
+    console.log(token + " " + cartItemId);
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + token);
+    myHeaders.append('Content-Type', 'application/json');
+
+    return fetch('http://localhost:8090/cart', {
+        method: "DELETE",
+        headers: myHeaders,
+        body: JSON.stringify({
+            cartItemId: cartItemId,
+        })
+    })
+        .then(data => data.json())
+        .then((data) => {
+            return data });
+};

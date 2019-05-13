@@ -34,18 +34,22 @@ class SignIn extends Component {
     handleLogInClick(event){
         const {email, password} = this.state;
         const {updateEmail} = this.props;
-        doSignIn(email, password)
-            .then(function (data) {
-                    if (typeof data.email == "undefined")
-                        alert("Bad inputs");
-                    else {
-                        localStorage.setItem('user-jwt', data.token);
-                        localStorage.setItem('email', data.email);
-                        updateEmail(data.email);
-                        history.push("/");
+        if ((email === "") || (password === "")){
+            alert("Fill in the fields")
+        } else {
+            doSignIn(email, password)
+                .then(function (data) {
+                        if (typeof data.email == "undefined")
+                            alert("Bad inputs");
+                        else {
+                            localStorage.setItem('user-jwt', data.token);
+                            localStorage.setItem('email', data.email);
+                            updateEmail(data.email);
+                            history.push("/");
+                        }
                     }
-                }
-            );
+                );
+        }
     }
 
     render() {

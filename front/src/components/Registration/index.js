@@ -53,9 +53,9 @@ class Registration extends Component {
             doRegistration(role, email, password, name, surname,
                 phone, country, city, street, house, apartment)
                 .then(data => {
-                    alert(typeof data);
+                    //alert(typeof data);
+                    alert(data);
                     if (data === "\"Registration completed successfully\""){
-                        alert(data);
                         history.push('/signIn');
                     } else {
                     }

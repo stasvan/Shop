@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import './productShop.scss';
 import Button from "@material-ui/core/Button";
-import {addToCart} from "../../services/API/cart";
+import {addItemToCart} from "../../services/API/cart";
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -31,7 +31,7 @@ class ProductShop extends Component {
         const token = localStorage.getItem("user-jwt");
         const {productShop} = this.props;
         if (token !== null) {
-            addToCart(productShop.id, productShop.price, token)
+            addItemToCart(productShop.id, productShop.price, token)
                 .then(data => {
                     alert(data);
                 });

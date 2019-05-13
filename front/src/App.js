@@ -100,7 +100,7 @@ class App extends Component {
                             />
                             <Route
                                 exact path='/cart'
-                                render={(props) => <Cart email={email} />}
+                                render={(props) => <Cart email={email} updateEmail ={this.updateEmail}/>}
                             />
                             <Route
                                 exact path='/profile'

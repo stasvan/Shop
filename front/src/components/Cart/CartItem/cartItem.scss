@@ -1,0 +1,15 @@
+.cartItem{
+  height: 100px;
+  width: 60%;
+  margin: 5px;
+}
+
+.cartItemPic {
+  float: left;
+  margin: 1% 1%;
+  width: 100px;
+
+  &__img {
+    height: 70px;
+  }
+}

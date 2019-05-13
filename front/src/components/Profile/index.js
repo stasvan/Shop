@@ -8,7 +8,6 @@ class Profile extends Component {
         if (email === "none"){
             return history.push('/signIn');
         }
-
     }
 
     render() {
