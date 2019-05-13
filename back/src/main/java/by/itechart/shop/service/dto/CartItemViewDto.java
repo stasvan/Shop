@@ -8,6 +8,7 @@ public class CartItemViewDto {
 
     private String brand;
     private String model;
+    private String imageName;
     private Integer year;
 
     private String shopName;
@@ -17,10 +18,12 @@ public class CartItemViewDto {
     public CartItemViewDto() {
     }
 
-    public CartItemViewDto(Integer cartItemId, String brand, String model, Integer year, String shopName, BigDecimal price) {
+    public CartItemViewDto(Integer cartItemId, String brand, String model, Integer year, String imageName,
+                           String shopName, BigDecimal price) {
         this.cartItemId = cartItemId;
         this.brand = brand;
         this.model = model;
+        this.imageName = imageName;
         this.year = year;
         this.shopName = shopName;
         this.price = price;
@@ -56,6 +59,14 @@ public class CartItemViewDto {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String getShopName() {

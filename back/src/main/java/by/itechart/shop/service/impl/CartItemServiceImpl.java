@@ -8,6 +8,7 @@ import by.itechart.shop.repository.PhoneRepository;
 import by.itechart.shop.service.dto.CartItemDto;
 import by.itechart.shop.service.dto.CartItemViewDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -120,7 +121,7 @@ public class CartItemServiceImpl {
 
         BigDecimal price = cartItemDto.getFixedPrice();
         Integer cartItemId = cartItemDto.getId();
-        System.out.println(cartItemId);
+//        System.out.println(cartItemId);
 
         ProductShop productShop = productShopService.getProductShopById(cartItemDto.getProductShopId());
         String shopName = productShop.getShop().getName();
@@ -129,6 +130,7 @@ public class CartItemServiceImpl {
 
         String brand = "";
         String model = "";
+        String imageName = "";
         Integer year = 0;
 
         switch (productType){
@@ -136,6 +138,7 @@ public class CartItemServiceImpl {
                 brand = phoneService.getPhoneByProductId(productId).getBrand().getName();
                 model = phoneService.getPhoneByProductId(productId).getModel();
                 year = phoneService.getPhoneByProductId(productId).getYear();
+                imageName = phoneService.getPhoneByProductId(productId).getImageName();
                 break;
 //            case "laptop":
 //                brand = laptopService.getPhoneByProductId(productId).getBrand().getName();
@@ -151,12 +154,17 @@ public class CartItemServiceImpl {
 
         }
 
-        CartItemViewDto cartItemViewDto = new CartItemViewDto(cartItemId, brand, model, year, shopName, price);
+        CartItemViewDto cartItemViewDto = new CartItemViewDto(cartItemId, brand, model, year, imageName, shopName, price);
         return cartItemViewDto;
     }
 
-    public void deleteById(Integer id){
-        cartItemRepository.deleteById(id);
+    public String deleteById(Integer id){
+        try {
+            cartItemRepository.deleteById(id);
+            return "ok";
+        } catch (EmptyResultDataAccessException e){
+            return "error";
+        }
     }
 
 }

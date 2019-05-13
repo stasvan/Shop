@@ -1,6 +1,8 @@
 package by.itechart.shop.controller;
 
 import by.itechart.shop.controller.request.AddItemToCartRequest;
+import by.itechart.shop.controller.request.DeleteItemFromCartRequest;
+import by.itechart.shop.controller.request.TokenRequest;
 import by.itechart.shop.model.ProductShop;
 import by.itechart.shop.security.jwt.JwtTokenProvider;
 import by.itechart.shop.service.dto.CartItemDto;
@@ -38,7 +40,8 @@ public class CartController {
 
     @PostMapping("/cart")
     @CrossOrigin("http://localhost:3000")
-    public ResponseEntity addCartItem(@RequestHeader(value="Authorization") String bearerToken, @RequestBody AddItemToCartRequest data) {
+    public ResponseEntity addCartItem(@RequestHeader(value="Authorization") String bearerToken,
+                                      @RequestBody AddItemToCartRequest data) {
 
         Integer productShopId = data.getProductShopId();
         BigDecimal fixedPrice = data.getFixedPrice();
@@ -61,7 +64,6 @@ public class CartController {
     @GetMapping("/cart")
     @CrossOrigin("http://localhost:3000")
     public List<CartItemViewDto> getCart(@RequestHeader(value="Authorization") String bearerToken){
-
         String token = bearerToken.substring(7, bearerToken.length());
         Integer userId = userService.getUserIdByEmail(jwtTokenProvider.getEmail(token));
 
@@ -71,8 +73,11 @@ public class CartController {
 
     @DeleteMapping("/cart")
     @CrossOrigin("http://localhost:3000")
-    public void deleteCartItem(@RequestBody Integer cartItemId) {
-        cartItemService.deleteById(cartItemId);
+    public ResponseEntity deleteCartItem(@RequestBody DeleteItemFromCartRequest data) {
+
+        Map<Object, Object> model = new HashMap<>();
+        model.put("message", cartItemService.deleteById(data.getCartItemId()));
+        return ok(model);
     }
 
 }

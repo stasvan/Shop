@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/myshop/**").hasRole("admin")
                 .antMatchers(HttpMethod.POST,"/cart/**").authenticated()
                 .antMatchers(HttpMethod.GET,"/cart/**").authenticated()
+                .antMatchers(HttpMethod.DELETE,"/cart/**").authenticated()
                 .anyRequest().permitAll()
             .and()
             .apply(new JwtConfigurer(jwtTokenProvider));
