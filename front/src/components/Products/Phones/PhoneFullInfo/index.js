@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
 import './phoneFullInfo.scss';
-import {getPhoneById} from "../../../../services/API/phone";
+import {getPhoneByBrandNameAndModel} from "../../../../services/API/phone";
 import {getProductShops} from "../../../../services/API/productShop";
 import ProductShop from "../../../ProductShop"
 
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
+import {showTextErrorToast} from "../../../../utils/utils";
 
+import Card from '@material-ui/core/Card';
 class PhoneFullInfo extends Component{
 
     state = {
@@ -18,14 +18,18 @@ class PhoneFullInfo extends Component{
     };
 
     async componentDidMount() {
-        const id = this.props.match.params.phoneId;
+        const model = this.props.match.params.model;
+        const brandName = this.props.match.params.brandName;
         //console.log(id);
-        await getPhoneById(id)
+        await getPhoneByBrandNameAndModel(brandName, model)
             .then(data => this.setState({
                 phone: data,
                 productId: data.product.id,
                 isLoading: false
-            }));
+            }))
+            .catch((err) => {
+                showTextErrorToast(err)
+            });
         getProductShops(this.state.productId)
             .then(data => this.setState({
                 productShops: data,
@@ -35,7 +39,8 @@ class PhoneFullInfo extends Component{
     render() {
         const {phone, isLoading} = this.state;
         const {productShops} = this.state;
-        const backgroundColor = "#EDEDED";
+        const {updateEmail} = this.props;
+        const backgroundColor = "#F6F6F6";
         //console.log(phone.id);
         //console.log(phone);
 
@@ -65,7 +70,7 @@ class PhoneFullInfo extends Component{
                 <div>
                 {
                     productShops.map(productShop =>
-                        <ProductShop key={productShop.id} productShop = {productShop} />
+                        <ProductShop key={productShop.id} productShop = {productShop} updateEmail = {updateEmail}/>
                     )
                 }
                 </div>

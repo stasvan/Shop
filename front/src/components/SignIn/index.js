@@ -3,11 +3,16 @@ import {NavLink} from "react-router-dom";
 
 import './signIn.scss';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import {Card} from "@material-ui/core";
+
 
 import {doSignIn} from "../../services/API/signIn";
+
+import {showTextErrorToast} from "../../utils/utils";
+
+import {parseJwt} from "../../utils/utils";
 
 import history from '../../services/history';
 
@@ -19,9 +24,8 @@ class SignIn extends Component {
     };
 
     componentDidMount() {
-        const {email} = this.props;
-        console.log(email);
-        if (email !== "none"){
+        const token = localStorage.getItem("user-jwt");
+        if (token != null){
             return history.push('/');
         }
     }
@@ -33,54 +37,75 @@ class SignIn extends Component {
 
     handleLogInClick(event){
         const {email, password} = this.state;
-        const {updateEmail} = this.props;
+        const {updateRole} = this.props;
         if ((email === "") || (password === "")){
-            alert("Fill in the fields")
+            showTextErrorToast("Fill in the fields");
         } else {
             doSignIn(email, password)
                 .then(function (data) {
                         if (typeof data.email == "undefined")
-                            alert("Bad inputs");
+                            showTextErrorToast("Bad login or password!");
                         else {
                             localStorage.setItem('user-jwt', data.token);
-                            localStorage.setItem('email', data.email);
-                            updateEmail(data.email);
+                            const tokenData = parseJwt(data.token);
+                            updateRole(tokenData.role);
                             history.push("/");
                         }
                     }
-                );
+                )
+                .catch((err) => {
+                    showTextErrorToast("Error")
+                })
         }
     }
 
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
     render() {
+        const backgroundColor = "#F6F6F6";
         return (
-            <MuiThemeProvider>
-                <div>
-                    <div className="signIn">
+            <div>
+                <Card className="signInCard" style={{backgroundColor}}>
+                    <div className="signInCard__emailField">
                         <TextField
-                            hintText="Enter your Username"
-                            floatingLabelText="Username"
-                            onChange = {(event,newValue) => this.setState({email:newValue})}
+                            id="standard-email-input"
+                            label="Email"
+                            type="email"
+                            autoComplete="email"
+                            margin="normal"
+                            onChange={this.handleChange('email')}
+                            style={{ width: 250}}
                         />
-                        <br/>
+                    </div>
+                    <div className="signInCard__passwordField">
                         <TextField
+                            id="standard-password-input"
+                            label="Password"
                             type="password"
-                            hintText="Enter your Password"
-                            floatingLabelText="Password"
-                            onChange = {(event,newValue) => this.setState({password:newValue})}
+                            autoComplete="current-password"
+                            margin="normal"
+                            onChange={this.handleChange('password')}
+                            style={{ width: 250}}
                         />
-                        <br/>
-                        <Button variant="contained" color="secondary"  onClick={(event) => this.handleLogInClick(event)}>
+                    </div>
+                    <div className="signInCard__submitButton">
+                        <Button variant="contained" color="primary"  onClick={(event) => this.handleLogInClick(event)}>
                             Submit
                         </Button>
-                        <NavLink className="registration" variant="contained" to={"/registration"} style={{ textDecoration: 'none' }}>
-                            <Button variant="contained" >
+                    </div>
+                    <div className="signInCard__regButton">
+                        <NavLink variant="contained" to={"/registration"} style={{ textDecoration: 'none' }}>
+                            <Button variant="contained">
                                 Registration
                             </Button>
                         </NavLink>
                     </div>
-                </div>
-            </MuiThemeProvider>
+                </Card>
+            </div>
         );
     }
 

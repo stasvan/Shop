@@ -1,0 +1,23 @@
+
+.circularProgress{
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+}
+
+.cartPage{
+  width: 60%;
+
+  &__title{
+    margin-left: 50px;
+  }
+
+  &__items{
+
+  }
+
+  &__buttonCheckOut{
+    float: right;
+  }
+
+}

@@ -24,7 +24,7 @@ export const addItemToCart = (productShopId, fixedPrice, token) => {
             return res.json();
         })
         .then(function (data) {
-            return JSON.stringify(data.message);
+            return data.message;
         });
 };
 

@@ -1,6 +1,6 @@
-package by.itechart.shop.security.jwt;
+package by.itechart.shop.service.security.jwt;
 
-import by.itechart.shop.security.CustomUserDetailsService;
+import by.itechart.shop.service.security.CustomUserDetailsService;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class JwtTokenProvider {
@@ -36,6 +35,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(email);
         claims.put("role", role);
+        claims.put("email", email);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);

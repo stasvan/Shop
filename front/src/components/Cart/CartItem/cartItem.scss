@@ -1,15 +1,27 @@
 .cartItem{
   height: 100px;
-  width: 60%;
+  //width: 50%;
   margin: 5px;
 }
 
 .cartItemPic {
   float: left;
-  margin: 1% 1%;
+  margin: 15px;
   width: 100px;
-
   &__img {
     height: 70px;
+  }
+}
+
+.deleteButton{
+  float: right;
+  margin: 15px;
+}
+
+.cartItemInfo{
+  float: left;
+  margin: 10px;
+  &__shop {
+    //margin-left: 10px;
   }
 }

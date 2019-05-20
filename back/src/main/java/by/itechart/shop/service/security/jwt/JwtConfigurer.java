@@ -1,4 +1,4 @@
-package by.itechart.shop.security.jwt;
+package by.itechart.shop.service.security.jwt;
 
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -6,68 +6,99 @@ import './header.scss'
 import Button from "@material-ui/core/Button";
 
 import history from '../../services/history';
-
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import {parseJwt} from "../../utils/utils";
+import {validateToken} from "../../services/API/token";
 
 class Header extends Component {
 
-
-    handleLogOutClick(event){
-        const {updateEmail} = this.props;
-        updateEmail("none");
-        localStorage.removeItem("user-jwt");
-        localStorage.removeItem("email");
-        history.push("/");
-
-        //this.forceUpdate()
+    componentDidMount() {
+        const token = localStorage.getItem("user-jwt");
+        const {updateRole} = this.props;
+        if (token == null){
+            console.log("do auth");
+            updateRole("none");
+        } else {
+            validateToken(token).then(function (message) {
+                console.log(message);
+                if (message === "valid") {
+                    const data = parseJwt(token);
+                    updateRole(data.role);
+                } else {
+                    updateRole("none");
+                }
+            });
+        }
     }
 
+    constructor(props) {
+        super(props);
+        this.handleLogOutClick = this.handleLogOutClick.bind(this);
+    }
+
+    handleLogOutClick(event){
+        const {updateRole} = this.props;
+        localStorage.removeItem("user-jwt");
+        history.push('/sign-in');
+        updateRole("none");
+    }
+
+
+
     render() {
-        const {email} = this.props;
-        //console.log(email);
-        //const cookies = new Cookies();
+        console.log("render");
+        //const token = localStorage.getItem("user-jwt");
+        const {role} = this.props;
+        console.log(role);
+        const handleLogOutClick = this.handleLogOutClick;
+        const textStyle = { textDecoration: 'none' };
+
+        function UserHeader() {
+            return <div className="header__main__right">
+                <NavLink className="header__main__nav" to={"/cart"} style={textStyle}>Cart</NavLink>
+                <NavLink className="header__main__nav" to={"/profile"} style={textStyle}>Profile</NavLink>
+                <Button className="header__main__button" size="small" variant="contained" onClick={(event) => handleLogOutClick(event)}>
+                    Log out
+                </Button>
+            </div>;
+        }
+
+        function AdminHeader() {
+            return <div className="header__main__right">
+                <NavLink className="header__main__nav" to={"/shop"} style={textStyle}>Shop</NavLink>
+                <NavLink className="header__main__nav" to={"/cart"} style={textStyle}>Cart</NavLink>
+                <NavLink className="header__main__nav" to={"/profile"} style={textStyle}>Profile</NavLink>
+                <Button className="header__main__button" size="small" variant="contained" onClick={(event) => handleLogOutClick(event)}>
+                    Log out
+                </Button>
+            </div>;
+        }
+
+        function SignInHeader(props) {
+            return <NavLink className="header__main__nav" to={"/sign-in"} style={textStyle}>Sign in</NavLink>;
+        }
+
+        let renderHeaderMain;
+        if (role === "none"){
+            renderHeaderMain = SignInHeader();
+        } else if (role === "user"){
+            renderHeaderMain = UserHeader();
+        } else if (role === "admin"){
+            renderHeaderMain = AdminHeader();
+        }
         return(
             <div className="header">
                     <div className="header__main">
-                        <NavLink className="header__main__nav" to={"/"} style={{ textDecoration: 'none' }}>MyOnliner</NavLink>
-
-                        { (email === "none")
-                            ? <NavLink className="header__main__nav" to={"/signIn"} style={{ textDecoration: 'none' }}>Sign in</NavLink>
-                            : <div className="header__main__right">
-                                <NavLink className="header__main__nav" to={"/cart"} style={{ textDecoration: 'none' }}>Cart</NavLink>
-                                <NavLink className="header__main__nav" to={"/profile"} >{email}</NavLink>
-                                <Button className="header__main__button" variant="contained" onClick={(event) => this.handleLogOutClick(event)}>
-                                    Log out
-                                </Button>
-                              </div>
+                        <NavLink className="header__main__nav" to={"/"} style={textStyle}>MyOnliner</NavLink>
+                        {
+                            renderHeaderMain
                         }
-
                     </div>
                     <div className="header__categories">
-                        <NavLink className="header__categories__nav" to={"/phones"} style={{ textDecoration: 'none' }}>Phones</NavLink>
-                        <NavLink className="header__categories__nav" to={"/tvs"} style={{ textDecoration: 'none' }}>TVs</NavLink>
-                        <NavLink className="header__categories__nav" to={"/laptops"} style={{ textDecoration: 'none' }}>Laptops</NavLink>
+                        <NavLink className="header__categories__nav" to={"/phones"} style={textStyle}>Phones</NavLink>
+                        <NavLink className="header__categories__nav" to={"/tvs"} style={textStyle}>TVs</NavLink>
+                        <NavLink className="header__categories__nav" to={"/laptops"} style={textStyle}>Laptops</NavLink>
                     </div>
-            {/*    <AppBar position="static" color="default">*/}
-            {/*    <Tabs*/}
-            {/*        value={1}*/}
-            {/*        onChange={this.handleChange}*/}
-            {/*        indicatorColor="primary"*/}
-            {/*        textColor="primary"*/}
-            {/*        variant="scrollable"*/}
-            {/*        scrollButtons="auto"*/}
-            {/*    >*/}
-            {/*        <Tab label="Phones" />*/}
-            {/*        <Tab label="TVs" />*/}
-            {/*        <Tab label="Laptops" />*/}
-            {/*        /!*<Tab label="Item Four" />*!/*/}
-            {/*        /!*<Tab label="Item Five" />*!/*/}
-            {/*        /!*<Tab label="Item Six" />*!/*/}
-            {/*        /!*<Tab label="Item Seven" />*!/*/}
-            {/*    </Tabs>*/}
-            {/*</AppBar>*/}
+
             </div>
         );
     }

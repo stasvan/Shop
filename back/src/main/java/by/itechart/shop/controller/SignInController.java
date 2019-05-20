@@ -1,8 +1,7 @@
 package by.itechart.shop.controller;
 
 import by.itechart.shop.controller.request.AuthenticationRequest;
-import by.itechart.shop.repository.UserRepository;
-import by.itechart.shop.security.jwt.JwtTokenProvider;
+import by.itechart.shop.service.security.jwt.JwtTokenProvider;
 import by.itechart.shop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

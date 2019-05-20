@@ -27,6 +27,6 @@ export const doRegistration = (role, email, password, name, surname, phone,
             return res.json();
         })
         .then(function (data) {
-            return JSON.stringify(data.message);
+            return data.message;
         });
 };

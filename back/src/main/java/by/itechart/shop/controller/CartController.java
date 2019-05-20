@@ -2,12 +2,8 @@ package by.itechart.shop.controller;
 
 import by.itechart.shop.controller.request.AddItemToCartRequest;
 import by.itechart.shop.controller.request.DeleteItemFromCartRequest;
-import by.itechart.shop.controller.request.TokenRequest;
-import by.itechart.shop.model.ProductShop;
-import by.itechart.shop.security.jwt.JwtTokenProvider;
-import by.itechart.shop.service.dto.CartItemDto;
+import by.itechart.shop.service.security.jwt.JwtTokenProvider;
 import by.itechart.shop.service.dto.CartItemViewDto;
-import by.itechart.shop.service.dto.ProductShopDto;
 import by.itechart.shop.service.impl.CartItemServiceImpl;
 import by.itechart.shop.service.impl.ProductShopServiceImpl;
 import by.itechart.shop.service.impl.UserServiceImpl;
@@ -16,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

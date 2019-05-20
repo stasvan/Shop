@@ -1,7 +1,7 @@
 package by.itechart.shop.config;
 
-import by.itechart.shop.security.jwt.JwtConfigurer;
-import by.itechart.shop.security.jwt.JwtTokenProvider;
+import by.itechart.shop.service.security.jwt.JwtConfigurer;
+import by.itechart.shop.service.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

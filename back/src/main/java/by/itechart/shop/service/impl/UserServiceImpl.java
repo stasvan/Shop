@@ -79,12 +79,12 @@ public class UserServiceImpl {
         String message = "ok";
 
         if ((email.length() < 8) || (email.length() > 36)) {
-            message = "Bad email";
+            message = "Bad email, symbols range 8-36";
             return message;
         }
 
         if ((password.length() < 6) || (password.length() > 36)) {
-            message = "Bad password";
+            message = "Bad password, symbols range 6-36";
             return message;
         }
 

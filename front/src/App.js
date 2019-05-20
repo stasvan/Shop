@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 import {validateToken} from "./services/API/token";
 
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import Header from './components/Header'
 import PhoneList from './components/Products/Phones/PhoneList'
 import PhoneFullInfo from "./components/Products/Phones/PhoneFullInfo";
@@ -14,61 +17,69 @@ import Greeting from "./components/Greeting";
 import Registration from "./components/Registration";
 import Cart from "./components/Cart"
 import Profile from "./components/Profile"
+import Shop from "./components/Shop"
 
 import history from './services/history';
+import {parseJwt} from "./utils/utils";
+import {showTextToast} from "./utils/utils";
+
+toast.configure()
 
 class App extends Component {
 
     state = {
-        email: "none",
+        role: "",
         isLoading: true
     };
 
+
     componentDidMount() {
-        const updateEmail = this.updateEmail;
+        //const updateEmail = this.updateEmail;
         const updateLoading = this.updateLoading;
-        const email = localStorage.getItem("email");
+        const updateRole = this.updateRole;
+        //const email = localStorage.getItem("email");
         const token = localStorage.getItem("user-jwt");
-        if((email == null) || (token == null)){
+        if(token == null){
             console.log("do auth");
-            updateEmail("none");
+            //updateEmail("none");
             updateLoading(false);
         }
         else {
             validateToken(token).then(function (message) {
                 console.log(message);
                 if (message === "valid") {
-                    updateEmail(email);
+                    const data = parseJwt(token);
+                    updateRole(data.role);
                 } else {
-                    alert("Bad token, sign in");
-                    updateEmail("none");
+                    showTextToast("Bad token, sign in");
                     localStorage.removeItem("user-jwt");
-                    localStorage.removeItem("email");
-                    history.push('/signIn');
+                    history.push('/sign-in');
 
                 }
                 updateLoading(false);
             });
         }
-
     }
 
     constructor(props) {
         super(props);
-        this.updateEmail = this.updateEmail.bind(this);
+        //this.updateEmail = this.updateEmail.bind(this);
         this.updateLoading = this.updateLoading.bind(this);
-    }
-
-    updateEmail(email) {
-        this.setState({email: email});
+        this.updateRole = this.updateRole.bind(this);
     }
 
     updateLoading(state) {
         this.setState({isLoading: state});
     }
 
+    updateRole(state) {
+        this.setState({role: state});
+        console.log("UPDATE ROLE");
+    }
+
     render() {
-        const {email, isLoading} = this.state;
+        const {isLoading} = this.state;
+        const {role} = this.state;
         if (isLoading){
             return '';
         }
@@ -76,14 +87,14 @@ class App extends Component {
             <div className="container">
                 <Router history={history}>
                     <div>
-                        <Header email={email} updateEmail ={this.updateEmail}/>
+                        <Header updateRole = {this.updateRole} role = {role} />
                         <Switch>
                             <Route
                                 exact path='/'
-                                render={(props) => <Greeting email={email} />}
+                                render={(props) => <Greeting />}
                             />
                             <Route
-                                exact path='/phones/:phoneId'
+                                exact path='/phones/:brandName/:model'
                                 component={PhoneFullInfo}
                             />
                             <Route
@@ -100,19 +111,23 @@ class App extends Component {
                             />
                             <Route
                                 exact path='/cart'
-                                render={(props) => <Cart email={email} updateEmail ={this.updateEmail}/>}
+                                render={(props) => <Cart updateRole = {this.updateRole}/>}
                             />
                             <Route
                                 exact path='/profile'
-                                render={(props) => <Profile email={email} />}
+                                render={(props) => <Profile updateRole = {this.updateRole}/>}
                             />
                             <Route
-                                exact path='/signIn'
-                                render={(props) => <SignIn updateEmail ={this.updateEmail} email={email}/>}
+                                exact path='/sign-in'
+                                render={(props) => <SignIn updateRole = {this.updateRole}/>}
                             />
                             <Route
                                 exact path='/registration'
-                                render={(props) => <Registration email={email} />}
+                                render={(props) => <Registration />}
+                            />
+                            <Route
+                                exact path='/shop'
+                                render={(props) => <Shop />}
                             />
                         </Switch>
                     </div>

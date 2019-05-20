@@ -30,21 +30,30 @@ public class PhoneController {
 //        return phoneService.getAllPhones();
 //    }
 
-    @GetMapping("/phones/{phoneId}")
+//    @GetMapping("/phones/{phoneId}")
+//    @CrossOrigin("http://localhost:3000")
+//    public PhoneDto getPhoneById(@PathVariable("phoneId") Integer id){
+//        return phoneService.getPhoneById(id);
+//    }
+//
+//
+    @GetMapping("/phones/{brandName}/{model}")
     @CrossOrigin("http://localhost:3000")
-    public PhoneDto getPhoneById(@PathVariable("phoneId") Integer id){
-        return phoneService.getPhoneById(id);
+    public PhoneDto getPhoneByBrandNameAndModel(@PathVariable("brandName") String brandName,
+                                                @PathVariable("model") String model){
+        return phoneService.getPhoneByBrandNameAndModel(brandName, model);
     }
 
 
-
-    @GetMapping("/phones")
+    @GetMapping("/phones/page/{page}/{limit}")
     @CrossOrigin("http://localhost:3000")
-    public List<PhoneDto> getPhonesByBrand(@RequestParam(name="brand", required = false) String brandName,
-                                           @RequestParam(name="year", required = false) Integer year,
-                                           @RequestParam(name="ram", required = false) String ram){
+    public List<PhoneDto> getPhones(@PathVariable(name="page", required = true) Integer page,
+                                    @PathVariable(name="limit", required = true) Integer limit,
+                                    @RequestParam(name="brand", required = false) String brandName,
+                                    @RequestParam(name="year", required = false) Integer year,
+                                    @RequestParam(name="ram", required = false) String ram){
 
-        List<PhoneDto> phones = phoneService.getPhonesByCharacteristics(brandName, ram, year);
+        List<PhoneDto> phones = phoneService.getPhones(page, limit, brandName, ram, year);
 
         return phones;
     }

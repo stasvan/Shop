@@ -1,4 +1,4 @@
-package by.itechart.shop.security;
+package by.itechart.shop.service.security;
 
 import by.itechart.shop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

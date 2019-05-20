@@ -1,20 +1,28 @@
 .registration {
-  margin-left: 5%;
-  width: 48%;
-  height: 400px;
-  float: left;
+  margin: 10px auto auto;
+  width: 60%;
+  height: 500px;
+
+  &__info {
+    margin: 2% 4% 2% 4%;
+    width: 40%;
+    height: 400px;
+    float: left;
+  }
+
+  &__address {
+    margin: 2% 4% 2% 4%;
+    width: 40%;
+    height: 400px;
+    float: left;
+  }
+
+  &__signUpButton {
+    float: left;
+    margin-left: 4%;
+  }
 }
 
-.address {
-  width: 40%;
-  height: 400px;
-  float: left;
-}
-
-.signIn {
-  float: left;
-  width: 10%;
-  height: 40px;
-  margin-left: 5%;
-  margin-top: 15px;
+.inputPhoneLabel{
+  width: 100%;
 }

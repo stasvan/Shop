@@ -1,7 +1,7 @@
 package by.itechart.shop.controller;
 
 import by.itechart.shop.controller.request.TokenRequest;
-import by.itechart.shop.security.jwt.JwtTokenProvider;
+import by.itechart.shop.service.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

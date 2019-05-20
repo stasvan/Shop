@@ -6,11 +6,14 @@ import Phone from '../Phone'
 class PhoneList extends Component{
 
     state = {
-        phones: []
+        phones: [],
+        limit: 5,
+        page: 0
     };
 
     componentDidMount() {
-        getPhones()
+        const {page, limit} = this.state;
+        getPhones(page, limit)
             .then(data => this.setState({
                 phones: data
             }))

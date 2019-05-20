@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "bootstrap": "^4.3.1",
     "material-ui": "^0.20.2",
     "node-sass": "^4.11.0",
+    "prop-types": "latest",
     "react": "^16.8.4",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-cookie": "^3.1.2",
@@ -14,9 +16,11 @@
     "react-loader": "^2.4.5",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.8",
+    "react-text-mask": "^5.4.3",
+    "react-toastify": "^5.1.0",
+    "react-toasts": "^3.0.3",
     "typeface-roboto": "0.0.54",
-    "universal-cookie": "^3.1.0",
-    "prop-types": "latest"
+    "universal-cookie": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

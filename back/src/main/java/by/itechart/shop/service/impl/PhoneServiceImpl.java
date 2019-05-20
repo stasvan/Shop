@@ -7,6 +7,8 @@ import by.itechart.shop.service.PhoneService;
 import by.itechart.shop.service.dto.PhoneDto;
 import by.itechart.shop.service.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -40,15 +42,30 @@ public class PhoneServiceImpl implements PhoneService {
         return phoneDto;
     }
 
+    public PhoneDto getPhoneByBrandNameAndModel(String brandName, String model) {
+        String brandNameNoHyphen = brandName.replace("-", " ");
+        String modelNoHyphen = model.replace("-", " ");
+        Phone phone = phoneRepository.findPhoneByBrandNameAndModel(brandNameNoHyphen, modelNoHyphen);
+        if (phone == null){
+            return null;
+        }
+
+        PhoneDto phoneDto = createPhoneDto(phone);
+        return phoneDto;
+    }
+
     public PhoneDto getPhoneByProductId(Integer productId) {
         Phone phone = phoneRepository.findPhoneByProductId(productId);
         PhoneDto phoneDto = createPhoneDto(phone);
         return phoneDto;
     }
 
-    public List<PhoneDto> getPhonesByCharacteristics(String brandName, String ram, Integer year) {
+    public List<PhoneDto> getPhones(Integer page, Integer limit, String brandName, String ram, Integer year) {
 
-        List<Phone> phones = phoneRepository.findPhonesByBrandNameAndRamAndYearNamedParams(brandName, ram, year);
+        Integer offset = limit * (page - 1);
+        Pageable pageable = new PageRequest(page, limit);
+        List<Phone> phones = phoneRepository
+                .findPhonesByBrandNameAndRamAndYearNamedParams(brandName, ram, year, pageable);
 
         List<PhoneDto> phonesDto = new ArrayList<>();
         for (Phone phone: phones) {

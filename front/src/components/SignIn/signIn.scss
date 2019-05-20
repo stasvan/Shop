@@ -1,7 +1,29 @@
-.signIn {
-  margin-left: 5%;
-  width: 50%;
-  .registration {
-    margin: 5px 0 0 0;
+.signInCard {
+  //display: flex;
+//  justify-content: center;
+  margin: 10px auto auto;
+  width: 35%;
+  height: 300px;
+
+  &__emailField{
+
+    margin: 0 10% 3% 10%;
+    width: 100%;
+  }
+
+  &__passwordField{
+
+    margin: 0 10% 3% 10%;
+    width: 100%;
+  }
+
+  &__submitButton{
+    margin: 0 10% 3% 10%;
+    width: 100%;
+  }
+
+  &__regButton{
+    margin: 0 10% 3% 10%;
+    width: 100%;
   }
 }
