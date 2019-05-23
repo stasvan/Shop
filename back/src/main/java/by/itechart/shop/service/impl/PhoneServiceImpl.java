@@ -1,6 +1,5 @@
 package by.itechart.shop.service.impl;
 
-
 import by.itechart.shop.model.Phone;
 import by.itechart.shop.repository.PhoneRepository;
 import by.itechart.shop.service.PhoneService;
@@ -73,6 +72,12 @@ public class PhoneServiceImpl implements PhoneService {
         }
 
         return phonesDto;
+    }
+
+    public Long getPhonesCount(String brandName, String ram, Integer year){
+        Long phonesCount = phoneRepository.count();
+
+        return phonesCount;
     }
 
     public PhoneDto createPhoneDto(Phone phone){

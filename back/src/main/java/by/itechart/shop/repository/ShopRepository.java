@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ShopRepository extends JpaRepository<Shop, Integer> {
-    List<Shop> findShopById(Integer id);
+    Shop findShopById(Integer id);
+    Shop findShopByUserId(Integer userId);
 }

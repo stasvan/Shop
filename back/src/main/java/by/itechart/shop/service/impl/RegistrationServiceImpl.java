@@ -38,7 +38,7 @@ public class RegistrationServiceImpl {
         String userDataValidationMessage = userService.validateUserData(role, email, password);
         if (!userDataValidationMessage.equals("ok")){
             model.put("message", userDataValidationMessage);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST )
+            return ResponseEntity.status(HttpStatus.CONFLICT )
                     .body(model);
         }
         password = passwordEncoder.encode(password);
@@ -46,7 +46,7 @@ public class RegistrationServiceImpl {
         String emailVerifyingMessage = userService.verifyEmail(email);
         if (!emailVerifyingMessage.equals("ok")){
             model.put("message", emailVerifyingMessage);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST )
+            return ResponseEntity.status(HttpStatus.CONFLICT )
                     .body(model);
         }
 
@@ -54,7 +54,7 @@ public class RegistrationServiceImpl {
         String accountDataValidationMessage = accountService.validateAccountData(name, surname, phone);
         if (!accountDataValidationMessage.equals("ok")) {
             model.put("message", accountDataValidationMessage);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(model);
         }
 
@@ -62,7 +62,7 @@ public class RegistrationServiceImpl {
                 .validateAddressData(country, city, street, house, apartment);
         if (!addressDataValidationMessage.equals("ok")) {
             model.put("message", addressDataValidationMessage);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(model);
         }
 

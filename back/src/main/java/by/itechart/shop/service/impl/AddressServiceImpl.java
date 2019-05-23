@@ -13,6 +13,9 @@ public class AddressServiceImpl {
     @Autowired
     AddressRepository addressRepository;
 
+    @Autowired
+    AccountServiceImpl accountService;
+
     //without id for POST
     public AddressDto createAddressDto(String country, String city,
                                        String street, String house, String apartment){
@@ -78,6 +81,25 @@ public class AddressServiceImpl {
 
     public Address getAddressById(Integer addressId){
         return addressRepository.findAddressById(addressId);
+    }
+
+    public AddressDto getAddressDtoById(Integer id){
+        Address address = getAddressById(id);
+        AddressDto addressDto = createAddressDto(
+                address.getId(),
+                address.getCountry(),
+                address.getCity(),
+                address.getStreet(),
+                address.getHouse(),
+                address.getApartment()
+        );
+        return addressDto;
+    }
+
+    public AddressDto getAddressDtoByUserId(Integer userId){
+        Integer addressId = accountService.getAccountByUserId(userId).getAddress().getId();
+        AddressDto addressDto = getAddressDtoById(addressId);
+        return addressDto;
     }
 
     public String validateAddressData(String country, String city, String street,

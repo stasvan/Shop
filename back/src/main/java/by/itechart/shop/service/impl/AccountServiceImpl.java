@@ -64,6 +64,11 @@ public class AccountServiceImpl {
         saveAccount(account);
     }
 
+    public Account getAccountByUserId(Integer userId){
+        Account account = accountRepository.findByUserId(userId);
+        return account;
+    }
+
     private void saveAccount(Account account){
         accountRepository.save(account);
     }

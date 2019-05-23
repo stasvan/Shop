@@ -29,7 +29,10 @@ public class CartItemServiceImpl {
     PhoneServiceImpl phoneService;
 
     @Autowired
-    LaptopRepository laptopRepository;
+    LaptopServiceImpl laptopService;
+
+    @Autowired
+    TvServiceImpl tvService;
 
 //    @Autowired
 //    TvRepository tvRepository;
@@ -140,21 +143,22 @@ public class CartItemServiceImpl {
                 year = phoneService.getPhoneByProductId(productId).getYear();
                 imageName = phoneService.getPhoneByProductId(productId).getImageName();
                 break;
-//            case "laptop":
-//                brand = laptopService.getPhoneByProductId(productId).getBrand().getName();
-//                model = laptopService.getPhoneByProductId(productId).getModel();
-//                year = laptopService.getPhoneByProductId(productId).getYear();
-//                break;
-//
-//            case "tv":
-//                brand = tvService.getPhoneByProductId(productId).getBrand().getName();
-//                model = tvService.getPhoneByProductId(productId).getModel();
-//                year = tvService.getPhoneByProductId(productId).getYear();
-//                break;
+            case "laptop":
+                brand = laptopService.getLaptopByProductId(productId).getBrand().getName();
+                model = laptopService.getLaptopByProductId(productId).getModel();
+                year = laptopService.getLaptopByProductId(productId).getYear();
+                imageName = laptopService.getLaptopByProductId(productId).getImageName();
+                break;
+            case "tv":
+                brand = tvService.getTvByProductId(productId).getBrand().getName();
+                model = tvService.getTvByProductId(productId).getModel();
+                year = tvService.getTvByProductId(productId).getYear();
+                imageName = tvService.getTvByProductId(productId).getImageName();
+                break;
 
         }
 
-        CartItemViewDto cartItemViewDto = new CartItemViewDto(cartItemId, brand, model, year, imageName, shopName, price);
+        CartItemViewDto cartItemViewDto = new CartItemViewDto(cartItemId, productType, brand, model, year, imageName, shopName, price);
         return cartItemViewDto;
     }
 

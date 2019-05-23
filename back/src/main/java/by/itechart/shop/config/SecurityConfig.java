@@ -34,10 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .authorizeRequests()
 //                .antMatchers(HttpMethod.POST, "/signin").permitAll()
-                .antMatchers("/myshop/**").hasRole("admin")
+                .antMatchers(HttpMethod.GET,"/shop/**").hasRole("admin")
+                .antMatchers(HttpMethod.POST,"/shop/**").hasRole("admin")
                 .antMatchers(HttpMethod.POST,"/cart/**").authenticated()
                 .antMatchers(HttpMethod.GET,"/cart/**").authenticated()
                 .antMatchers(HttpMethod.DELETE,"/cart/**").authenticated()
+                .antMatchers(HttpMethod.GET,"/address/user/**").authenticated()
                 .anyRequest().permitAll()
             .and()
             .apply(new JwtConfigurer(jwtTokenProvider));

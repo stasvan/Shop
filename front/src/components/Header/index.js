@@ -4,6 +4,9 @@ import {NavLink} from 'react-router-dom';
 import './header.scss'
 
 import Button from "@material-ui/core/Button";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import PersonIcon from '@material-ui/icons/Person';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
 
 import history from '../../services/history';
 import {parseJwt} from "../../utils/utils";
@@ -22,6 +25,7 @@ class Header extends Component {
                 console.log(message);
                 if (message === "valid") {
                     const data = parseJwt(token);
+                    console.log(data);
                     updateRole(data.role);
                 } else {
                     updateRole("none");
@@ -54,8 +58,14 @@ class Header extends Component {
 
         function UserHeader() {
             return <div className="header__main__right">
-                <NavLink className="header__main__nav" to={"/cart"} style={textStyle}>Cart</NavLink>
-                <NavLink className="header__main__nav" to={"/profile"} style={textStyle}>Profile</NavLink>
+                <NavLink className="header__main__nav" to={"/cart"} style={textStyle}>
+                    Cart
+                    <ShoppingCartIcon />
+                </NavLink>
+                <NavLink className="header__main__nav" to={"/profile"} style={textStyle}>
+                    Profile
+                    <PersonIcon />
+                </NavLink>
                 <Button className="header__main__button" size="small" variant="contained" onClick={(event) => handleLogOutClick(event)}>
                     Log out
                 </Button>
@@ -64,9 +74,18 @@ class Header extends Component {
 
         function AdminHeader() {
             return <div className="header__main__right">
-                <NavLink className="header__main__nav" to={"/shop"} style={textStyle}>Shop</NavLink>
-                <NavLink className="header__main__nav" to={"/cart"} style={textStyle}>Cart</NavLink>
-                <NavLink className="header__main__nav" to={"/profile"} style={textStyle}>Profile</NavLink>
+                <NavLink className="header__main__nav" to={"/shop"} style={textStyle}>
+                    Shop
+                    <LocalMallIcon />
+                </NavLink>
+                <NavLink className="header__main__nav" to={"/cart"} style={textStyle}>
+                    Cart
+                    <ShoppingCartIcon />
+                </NavLink>
+                <NavLink className="header__main__nav" to={"/profile"} style={textStyle}>
+                    Profile
+                    <PersonIcon />
+                </NavLink>
                 <Button className="header__main__button" size="small" variant="contained" onClick={(event) => handleLogOutClick(event)}>
                     Log out
                 </Button>

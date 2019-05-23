@@ -1,0 +1,38 @@
+.laptopCharacteristics {
+  margin: 5px;
+  //background-color: #CFCECE;
+  color: black;
+  width: 49%;
+  height: 450px;
+  //border: 1px solid #D1381A;
+  float: left;
+
+  &__characteristic{
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 90%;
+  }
+}
+
+.lpic {
+  margin: 5px;
+  //background-color: #CFCECE;
+  color: black;
+  width: 49%;
+  height: 450px;
+  //border: 1px solid #D1381A;
+  float: left;
+  &__img{
+    margin-left: 20px;
+    margin-top: 20px;
+    max-height: 350px;
+    max-width: 500px;
+    position: center;
+  }
+}
+
+h3{
+  margin-left: 20px;
+  margin-top: 20px;
+  width: 400px;
+}

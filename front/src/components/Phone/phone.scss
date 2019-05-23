@@ -1,0 +1,35 @@
+
+.phonePic {
+  float: left;
+  margin: 2% 0 0 2%;
+  width: 40%;
+  height: 190px;
+  &__img{
+    display: flex;
+    margin: auto;
+    max-height: 180px;
+    max-width: 100%;
+  }
+}
+
+.pchr{
+  width: 50%;
+  float: left;
+  margin: 3% 3%;
+}
+
+.navp{
+  //background-color: #CFCECE;
+  color: black;
+  height: 200px;
+  //border: 1px solid #D1381A;
+  margin: 1%;
+  width: 68%;
+  float: left;
+}
+
+//.navp:hover {
+//  //border: 1px solid black;
+//  color: #D1381A
+//}
+

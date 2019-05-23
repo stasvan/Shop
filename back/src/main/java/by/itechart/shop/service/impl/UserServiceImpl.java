@@ -100,7 +100,7 @@ public class UserServiceImpl {
         String message = "ok";
 
         if (getUserByEmail(email) != null) {
-            message = "Email is already exists";
+            message = "Email already exists";
             return message;
         }
 

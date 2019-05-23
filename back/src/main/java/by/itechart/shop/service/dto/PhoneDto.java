@@ -1,8 +1,5 @@
 package by.itechart.shop.service.dto;
 
-import by.itechart.shop.model.Brand;
-import by.itechart.shop.model.Product;
-
 public class PhoneDto {
 
     private Integer id;

@@ -35,10 +35,11 @@ public class SignInController {
     @Autowired
     UserServiceImpl userService;
 
-    @PostMapping("/signin")
+    @PostMapping("/sign-in")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity signIn(@RequestBody AuthenticationRequest data) {
         try {
+
             String email = data.getEmail();
             String password = data.getPassword();
 
@@ -49,9 +50,7 @@ public class SignInController {
             Integer id = userService.getUserIdByEmail(email);
             System.out.println(token);
             Map<Object, Object> model = new HashMap<>();
-            model.put("email", email);
             model.put("token", token);
-            model.put("id", id);
             return ok(model);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid email/password supplied");
