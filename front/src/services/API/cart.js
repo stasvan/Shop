@@ -17,8 +17,6 @@ export const addItemToCart = (productShopId, fixedPrice, token) => {
         })
     };
 
-    console.log(token);
-
     return fetch('http://localhost:8090/cart', myInit)
         .then(function (res) {
             return res.json();
@@ -39,12 +37,10 @@ export const getCartItems = (token) => {
     })
         .then(data => data.json())
         .then((data) => {
-            //console.log(data);
             return data });
 };
 
 export const deleteItemFromCart = (token, cartItemId) => {
-    console.log(token + " " + cartItemId);
     const myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + token);
     myHeaders.append('Content-Type', 'application/json');

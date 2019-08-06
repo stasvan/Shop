@@ -9,14 +9,6 @@ export const getPhones = (page, limit) =>
             //console.log(data);
             return data });
 
-//
-// export const getPhoneById = (phoneId) =>
-//     fetch(`http://localhost:8090/phones/${phoneId}`)
-//         .then(data => data.json())
-//         .then((data) => {
-//             //console.log(data);
-//             return data });
-
 export const getPhoneByBrandNameAndModel = (brandName, model) =>
     fetch(`http://localhost:8090/phones/${brandName}/${model}`)
         .then(data => data.json())

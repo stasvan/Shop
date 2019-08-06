@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button/index';
+import TextField from '@material-ui/core/TextField/index';
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel/index';
+import Checkbox from '@material-ui/core/Checkbox/index';
 import {Card} from "@material-ui/core";
 
 
@@ -15,6 +15,21 @@ import {showTextErrorToast} from "../../utils/utils";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import MaskedInput from "react-text-mask";
+
+function TextMaskCustom(props) {
+    const { inputRef, ...other } = props;
+    return (
+        <MaskedInput
+            {...other}
+            ref={ref => {
+                inputRef(ref ? ref.inputElement : null);
+            }}
+            mask={['+', /\d/, /\d/, /\d/, '(',  /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+            placeholderChar={'\u2000'}
+            showMask
+        />
+    );
+}
 
 class Registration extends Component {
 
@@ -32,8 +47,6 @@ class Registration extends Component {
         checkedAdmin: false,
         phoneMask: '+   (  )  -  -   '
     };
-
-
 
     componentDidMount() {
         const token = localStorage.getItem("user-jwt");
@@ -197,22 +210,6 @@ class Registration extends Component {
         );
     }
 
-}
-
-function TextMaskCustom(props) {
-    const { inputRef, ...other } = props;
-
-    return (
-        <MaskedInput
-            {...other}
-            ref={ref => {
-                inputRef(ref ? ref.inputElement : null);
-            }}
-            mask={['+', /\d/, /\d/, /\d/, '(',  /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-            placeholderChar={'\u2000'}
-            showMask
-        />
-    );
 }
 
 export default Registration;

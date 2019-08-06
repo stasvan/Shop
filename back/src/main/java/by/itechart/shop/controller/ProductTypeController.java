@@ -24,10 +24,10 @@ public class ProductTypeController {
         return productTypeService.getProductTypes();
     }
 
-    @GetMapping("/productsByType")
-    @CrossOrigin("http://localhost:3000")
-    public List<String> getProductsByType(@RequestParam(name="type") String type){
-        return productTypeService.getProductsByType(type);
-    }
+//    @GetMapping("/productsByType")
+//    @CrossOrigin("http://localhost:3000")
+//    public List<String> getProductsByType(@RequestParam(name="type") String type){
+//        return productTypeService.getProductsByType(type);
+//    }
 
 }

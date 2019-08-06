@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 
 
-import history from '../../../../services/history'
+import history from '../../services/history'
 
 class Phone extends Component {
 

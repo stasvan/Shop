@@ -18,14 +18,11 @@ class Header extends Component {
         const token = localStorage.getItem("user-jwt");
         const {updateRole} = this.props;
         if (token == null){
-            console.log("do auth");
             updateRole("none");
         } else {
             validateToken(token).then(function (message) {
-                console.log(message);
                 if (message === "valid") {
                     const data = parseJwt(token);
-                    console.log(data);
                     updateRole(data.role);
                 } else {
                     updateRole("none");
@@ -49,10 +46,8 @@ class Header extends Component {
 
 
     render() {
-        console.log("render");
         //const token = localStorage.getItem("user-jwt");
         const {role} = this.props;
-        console.log(role);
         const handleLogOutClick = this.handleLogOutClick;
         const textStyle = { textDecoration: 'none' };
 
@@ -74,7 +69,7 @@ class Header extends Component {
 
         function AdminHeader() {
             return <div className="header__main__right">
-                <NavLink className="header__main__nav" to={"/shop"} style={textStyle}>
+                <NavLink className="header__main__nav" to={"/my-shop"} style={textStyle}>
                     Shop
                     <LocalMallIcon />
                 </NavLink>
@@ -114,8 +109,8 @@ class Header extends Component {
                     </div>
                     <div className="header__categories">
                         <NavLink className="header__categories__nav" to={"/phones"} style={textStyle}>Phones</NavLink>
-                        <NavLink className="header__categories__nav" to={"/tvs"} style={textStyle}>TVs</NavLink>
                         <NavLink className="header__categories__nav" to={"/laptops"} style={textStyle}>Laptops</NavLink>
+                        <NavLink className="header__categories__nav" to={"/tvs"} style={textStyle}>TVs</NavLink>
                     </div>
 
             </div>

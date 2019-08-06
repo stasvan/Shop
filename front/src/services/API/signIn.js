@@ -13,11 +13,12 @@ export const doSignIn = (email, password) => {
         })
     };
 
-    return fetch('http://localhost:8090/signin', myInit)
+    return fetch('http://localhost:8090/sign-in', myInit)
         .then(function (res) {
             return res.json();
         })
         .then(function (data) {
+            console.log(data);
             return data;
         });
 };

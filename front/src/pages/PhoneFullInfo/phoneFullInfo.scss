@@ -3,7 +3,7 @@
   //background-color: #CFCECE;
   color: black;
   width: 49%;
-  height: 450px;
+  height: 500px;
   //border: 1px solid #D1381A;
   float: left;
 
@@ -19,13 +19,14 @@
   //background-color: #CFCECE;
   color: black;
   width: 49%;
-  height: 450px;
+  height: 500px;
   //border: 1px solid #D1381A;
   float: left;
   &__img{
     margin-left: 20px;
-    margin-top: 20px;
-    height: 330px;
+    margin-top: 50px;
+    max-height: 370px;
+    max-width: 500px;
     position: center;
   }
 }

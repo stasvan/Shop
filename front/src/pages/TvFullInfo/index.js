@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-import './phoneFullInfo.scss';
-import {getPhoneByBrandNameAndModel} from "../../services/API/phone";
+import './tvFullInfo.scss';
+import {getTvByBrandNameAndModel} from "../../services/API/tv";
 import {getProductShops} from "../../services/API/productShop";
 import ProductShop from "../../components/ProductShop"
 
@@ -10,11 +10,11 @@ import {showTextErrorToast} from "../../utils/utils";
 import Card from '@material-ui/core/Card';
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-class PhoneFullInfo extends Component{
+class TvFullInfo extends Component{
 
     state = {
         productShops: [],
-        phone: {},
+        tv: {},
         isLoading: true,
         productId: ""
     };
@@ -23,9 +23,9 @@ class PhoneFullInfo extends Component{
         const model = this.props.match.params.model;
         const brandName = this.props.match.params.brandName;
         //console.log(id);
-        await getPhoneByBrandNameAndModel(brandName, model)
+        await getTvByBrandNameAndModel(brandName, model)
             .then(data => this.setState({
-                phone: data,
+                tv: data,
                 productId: data.product.id,
             }))
             .catch((err) => {
@@ -39,7 +39,7 @@ class PhoneFullInfo extends Component{
     }
 
     render() {
-        const {phone, isLoading} = this.state;
+        const {tv, isLoading} = this.state;
         const {productShops} = this.state;
         const {updateRole} = this.props;
         const backgroundColor = "#F6F6F6";
@@ -48,7 +48,7 @@ class PhoneFullInfo extends Component{
 
         if (isLoading){
             return (
-                <div className="phonesCircularProgress">
+                <div className="tvsCircularProgress">
                     <CircularProgress />
                 </div>
             )
@@ -56,22 +56,20 @@ class PhoneFullInfo extends Component{
 
         return(
             <div>
-                <Card className="phoneCharacteristics" style={{backgroundColor}}>
+                <Card className="tvCharacteristics" style={{backgroundColor}}>
                     <h3>Characteristics</h3>
                     <ul>
-                        <li className="phoneCharacteristics__characteristic">{phone.brand.name}</li>
-                        <li className="phoneCharacteristics__characteristic">{phone.model}</li>
-                        <li className="phoneCharacteristics__characteristic">{phone.year}</li>
-                        <li className="phoneCharacteristics__characteristic">{phone.screenResolution}</li>
-                        <li className="phoneCharacteristics__characteristic">{phone.screenTechnology}</li>
-                        <li className="phoneCharacteristics__characteristic">{phone.cpu}</li>
-                        <li className="phoneCharacteristics__characteristic">{phone.ram}</li>
-                        <li className="phoneCharacteristics__characteristic">{phone.camera}</li>
+                        <li className="tvCharacteristics__characteristic">{tv.brand.name}</li>
+                        <li className="tvCharacteristics__characteristic">{tv.model}</li>
+                        <li className="tvCharacteristics__characteristic">{tv.year}</li>
+                        <li className="tvCharacteristics__characteristic">{tv.resolution}</li>
+                        <li className="tvCharacteristics__characteristic">{tv.technology}</li>
+                        <li className="tvCharacteristics__characteristic">{tv.diagonal}</li>
                     </ul>
                 </Card>
-                <Card className="ppic" style={{backgroundColor}}>
+                <Card className="tpic" style={{backgroundColor}}>
                     <h3>Picture</h3>
-                    <img className="ppic__img" src={`${phone.imageName}`} alt={`${phone.model}`} />
+                    <img className="tpic__img" src={`${tv.imageName}`} alt={`${tv.model}`} />
                 </Card>
                 <div>
                 {
@@ -86,4 +84,4 @@ class PhoneFullInfo extends Component{
     }
 }
 
-export default PhoneFullInfo;
+export default TvFullInfo;

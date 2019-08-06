@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
-import { getPhones } from "../../../../services/API/phone";
+import { getPhones } from "../../services/API/phone";
 
-import Pagination from "material-ui-flat-pagination";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import Pagination from "material-ui-flat-pagination/lib/index";
 
 import './phoneList.scss';
-import Phone from '../../../Phone'
+
+import Phone from '../../components/Phone'
 import CircularProgress from "@material-ui/core/CircularProgress";
-
-
-const theme = createMuiTheme();
+import {showTextErrorToast} from "../../utils/utils";
 
 class PhoneList extends Component{
 
@@ -18,7 +15,7 @@ class PhoneList extends Component{
         isLoading: true,
         phones: [],
         phonesCount: 0,
-        limit: 3,
+        limit: 4,
         page: 0,
         offset: 0
     };
@@ -44,7 +41,10 @@ class PhoneList extends Component{
             .then(data => this.setState({
                 phones: data.phones,
                 phonesCount: data.phonesCount
-            }));
+            }))
+            .catch(function() {
+                showTextErrorToast("Error");
+            });
         this.setState({isLoading: false})
     }
 
@@ -67,7 +67,6 @@ class PhoneList extends Component{
             )
         }
         const  {phones, limit, offset, phonesCount} = this.state;
-        console.log(phonesCount);
         return(
             <div>
                 <div className="phoneList">

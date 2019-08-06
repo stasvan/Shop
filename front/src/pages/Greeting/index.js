@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
 
-import {Card} from "@material-ui/core";
-
 import './greeting.scss'
 
 class Greeting extends Component {
 
-
-
     render() {
-        const backgroundColor = "#F6F6F6";
         return(
             <div>
                 <div>

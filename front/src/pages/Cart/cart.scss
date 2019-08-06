@@ -1,23 +1,40 @@
 
-.circularProgress{
+.cartCircularProgress{
   display: flex;
   justify-content: center;
-  margin: 5px;
+  margin-top: 20%;
 }
 
 .cartPage{
-  width: 60%;
 
   &__title{
     margin-left: 50px;
   }
 
-  &__items{
+  &__cart{
+    width: 60%;
+    float: left;
+    &__items{
+
+    }
 
   }
 
-  &__buttonCheckOut{
-    float: right;
+  &__address{
+    width: 34%;
+    height: 430px;
+    float: left;
+    margin-left: 4%;
+
+    &__field{
+      margin-left: 20%
+    }
+
+    &__buttonCheckOut{
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
   }
 
 }

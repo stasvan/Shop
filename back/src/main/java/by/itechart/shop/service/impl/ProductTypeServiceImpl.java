@@ -34,8 +34,8 @@ public class ProductTypeServiceImpl {
         return productTypesStrings;
     }
 
-    public List<String> getProductsByType(String type){
-        
-    }
+//    public List<String> getProductsByType(String type){
+//
+//    }
 
 }

@@ -39,7 +39,7 @@ class SignIn extends Component {
         const {email, password} = this.state;
         const {updateRole} = this.props;
         if ((email === "") || (password === "")){
-            showTextErrorToast("Fill in the fields");
+            showTextErrorToast("Fill in all the fields");
         } else {
             doSignIn(email, password)
                 .then(function (data) {

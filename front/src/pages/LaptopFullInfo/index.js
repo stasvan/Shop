@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 
 import './laptopFullInfo.scss';
-import {getLaptopByBrandNameAndModel} from "../../../../services/API/laptop";
-import {getProductShops} from "../../../../services/API/productShop";
-import ProductShop from "../../../ProductShop"
+import {getLaptopByBrandNameAndModel} from "../../services/API/laptop";
+import {getProductShops} from "../../services/API/productShop";
+import ProductShop from "../../components/ProductShop"
 
-import {showTextErrorToast} from "../../../../utils/utils";
+import {showTextErrorToast} from "../../utils/utils";
 
 import Card from '@material-ui/core/Card';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class LaptopFullInfo extends Component{
 
@@ -26,27 +27,31 @@ class LaptopFullInfo extends Component{
             .then(data => this.setState({
                 laptop: data,
                 productId: data.product.id,
-                isLoading: false
             }))
             .catch((err) => {
                 showTextErrorToast(err)
             });
-        getProductShops(this.state.productId)
+        await getProductShops(this.state.productId)
             .then(data => this.setState({
                 productShops: data,
             }));
+        this.setState({isLoading: false});
     }
 
     render() {
         const {laptop, isLoading} = this.state;
         const {productShops} = this.state;
-        const {updateEmail} = this.props;
+        const {updateRole} = this.props;
         const backgroundColor = "#F6F6F6";
         //console.log(phone.id);
         //console.log(phone);
 
         if (isLoading){
-            return '';
+            return (
+                <div className="laptopsCircularProgress">
+                    <CircularProgress />
+                </div>
+            )
         }
 
         return(
@@ -59,8 +64,10 @@ class LaptopFullInfo extends Component{
                         <li className="laptopCharacteristics__characteristic">{laptop.year}</li>
                         <li className="laptopCharacteristics__characteristic">{laptop.screenResolution}</li>
                         <li className="laptopCharacteristics__characteristic">{laptop.screenTechnology}</li>
+                        <li className="laptopCharacteristics__characteristic">{laptop.screenDiagonal}</li>
                         <li className="laptopCharacteristics__characteristic">{laptop.cpu}</li>
                         <li className="laptopCharacteristics__characteristic">{laptop.ram}</li>
+                        <li className="laptopCharacteristics__characteristic">{laptop.storage}</li>
                         <li className="laptopCharacteristics__characteristic">{laptop.camera}</li>
                     </ul>
                 </Card>
@@ -71,7 +78,7 @@ class LaptopFullInfo extends Component{
                 <div>
                     {
                         productShops.map(productShop =>
-                            <ProductShop key={productShop.id} productShop = {productShop} updateEmail = {updateEmail}/>
+                            <ProductShop key={productShop.id} productShop = {productShop} updateRole = {updateRole}/>
                         )
                     }
                 </div>
