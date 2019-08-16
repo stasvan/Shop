@@ -27,6 +27,7 @@ back/activemq-data
 back/bin
 back/build
 back/build.log
+back/application.log
 back/dependency-reduced-pom.xml
 back/dump.rdb
 back/interpolated*.xml
