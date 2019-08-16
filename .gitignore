@@ -50,6 +50,8 @@ back/dependency-reduced-pom.xml
 back/buildNumber.properties
 back/.mvn/timing.properties
 back/.mvn/wrapper/maven-wrapper.jar
+back/mvnw
+back/mvnw.cmd
 
 #React
 
