@@ -68,13 +68,12 @@ public class RegistrationServiceImpl {
 
         userService.saveUserDto(userService.createUserDto(email, password, role));
 
-        addressService.saveAddressDto(addressService.createAddressDto(country, city, street, house, apartment));
-
+        Integer addressId = addressService
+                .saveAddressDto(addressService.createAddressDto(country, city, street, house, apartment));
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime localDateTime = LocalDateTime.now();
         String registrationDate = dtf.format(localDateTime);
         Integer userId = userService.getUserIdByEmail(email);
-        Integer addressId = addressService.getAddressId(country, city, street, house, apartment);
         accountService.saveAccountDto(accountService.createAccountDto(
                 userId, addressId, name, surname, registrationDate, phone
         ));

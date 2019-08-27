@@ -57,7 +57,7 @@ public class AddressServiceImpl {
         return address;
     }
 
-    public void saveAddressDto(AddressDto addressDto){
+    public Integer saveAddressDto(AddressDto addressDto){
         Address address = createAddress(
                 addressDto.getCountry(),
                 addressDto.getCity(),
@@ -65,18 +65,12 @@ public class AddressServiceImpl {
                 addressDto.getHouse(),
                 addressDto.getApartment()
         );
-        saveAddress(address);
+        return saveAddress(address);
     }
 
-    private void saveAddress(Address address){
-        addressRepository.save(address);
-    }
-
-    public Integer getAddressId(String country, String city,
-                                String street, String house, String apartment){
-        return addressRepository.findAddressByCountryAndCityAndStreetAndHouseAndApartment(
-                country, city, street, house, apartment
-        ).getId();
+    private Integer saveAddress(Address address){
+        Address saved = addressRepository.save(address);
+        return saved.getId();
     }
 
     public Address getAddressById(Integer addressId){
