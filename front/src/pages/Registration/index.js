@@ -12,24 +12,7 @@ import {doRegistration} from "../../services/API/registration";
 import './registration.scss'
 import history from "../../services/history";
 import {showTextErrorToast} from "../../utils/utils";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import MaskedInput from "react-text-mask";
-
-function TextMaskCustom(props) {
-    const { inputRef, ...other } = props;
-    return (
-        <MaskedInput
-            {...other}
-            ref={ref => {
-                inputRef(ref ? ref.inputElement : null);
-            }}
-            mask={['+', /\d/, /\d/, /\d/, '(',  /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-            placeholderChar={'\u2000'}
-            showMask
-        />
-    );
-}
+import MuiPhoneNumber from 'material-ui-phone-number';
 
 class Registration extends Component {
 
@@ -44,8 +27,7 @@ class Registration extends Component {
         street: '',
         house: '',
         apartment: '',
-        checkedAdmin: false,
-        phoneMask: '+   (  )  -  -   '
+        checkedAdmin: false
     };
 
     componentDidMount() {
@@ -91,6 +73,12 @@ class Registration extends Component {
         });
     };
 
+    handlePhoneChange = value  => {
+        this.setState({
+            phone: value
+        });
+    }
+
     handleCheckAdminChange = name => event => {
         this.setState({
             [name]: event.target.checked,
@@ -98,7 +86,6 @@ class Registration extends Component {
     };
 
     render() {
-        const {phone} = this.state;
         const style = {width: 250};
         const backgroundColor = "#F6F6F6";
         return (
@@ -135,17 +122,26 @@ class Registration extends Component {
                             label="Password"
                             onChange={this.handleChange('password')}
                             type="password"
-                            autoComplete="current-password"
+                            // autoComplete="current-password"
                             margin="normal"
                             style={style}
                         />
-                        <InputLabel className="inputPhoneLabel" htmlFor="formatted-phone-mask-input">phone</InputLabel>
-                        <Input
-                            value={phone}
-                            onChange={this.handleChange('phone')}
-                            id="formatted-text-mask-input"
-                            inputComponent={TextMaskCustom}
-                        />
+                        {/*<TextField*/}
+                        {/*    id="standard-phone-input"*/}
+                        {/*    label="Phone"*/}
+                        {/*    onChange={this.handleChange('phone')}*/}
+                        {/*    type="phone"*/}
+                        {/*    margin="normal"*/}
+                        {/*    style={style}*/}
+                        {/*/>*/}
+                        <MuiPhoneNumber onlyCountries = {['by','ru','ua']} defaultCountry={'by'} onChange={this.handlePhoneChange}/>
+                        {/*<InputLabel className="inputPhoneLabel" htmlFor="formatted-phone-mask-input">phone</InputLabel>*/}
+                        {/*<Input*/}
+                        {/*    value={phone}*/}
+                        {/*    // onChange={this.handleChange('phone')}*/}
+                        {/*    id="standard-phone-input"*/}
+                        {/*    onChange={e => this.setState({phone: /[A-Z][a-z]+\s[A-Z][a-z]+/.exec(e.target.innerHTML)})}*/}
+                        {/*/>*/}
                         <FormControlLabel
                             control={
                                 <Checkbox

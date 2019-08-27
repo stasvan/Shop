@@ -15,22 +15,9 @@ import {getShopInfo} from "../../services/API/shop";
 import {getProductTypes, getProductsByType} from "../../services/API/productTypes";
 import {showTextErrorToast} from "../../utils/utils";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {doRegistration} from "../../services/API/registration";
+import MuiPhoneNumber from "material-ui-phone-number";
 
-function TextMaskCustom(props) {
-    const { inputRef, ...other } = props;
-
-    return (
-        <MaskedInput
-            {...other}
-            ref={ref => {
-                inputRef(ref ? ref.inputElement : null);
-            }}
-            mask={['+', /\d/, /\d/, /\d/, '(',  /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-            placeholderChar={'\u2000'}
-            showMask
-        />
-    );
-}
 class Shop extends Component {
 
     state = {
@@ -39,16 +26,17 @@ class Shop extends Component {
         description: '',
         name: '',
         image: '/img/empty_shop.png',
+        phone: '',
         country: '',
         city: '',
         street: '',
         house: '',
         apartment: '',
-        phoneMask: '+   (  )  -  -   ',
+
         productTypes: [],
-        type: "",
+        type: null,
         products: [],
-        product: ''
+        product: null,
     };
 
     constructor(props) {
@@ -121,7 +109,7 @@ class Shop extends Component {
             street: data.address.street,
             house: data.address.house,
             apartment: data.address.apartment,
-            phoneMask: data.phoneNumber,
+            phone: data.phoneNumber,
             description: data.description,
             name: data.name,
             image: data.imageName
@@ -140,11 +128,19 @@ class Shop extends Component {
 
     handleTypeChange = name => event => {
         const type = event.target.value;
+        console.log(type)
         // this.updateProducts(type);
         this.setState({
             [name]: type,
         });
     };
+
+    handlePhoneChange = value  => {
+        console.log(value)
+        this.setState({
+            phone: value
+        });
+    }
 
     updateProducts(type){
         const products = getProductsByType();
@@ -194,13 +190,8 @@ class Shop extends Component {
                                 />
                             </div>
                             <div className="shopInfo__dataSection__fields__phone">
-                                <InputLabel htmlFor="formatted-text-mask-input">phone</InputLabel>
-                                <Input
-                                    value={phoneMask}
-                                    onChange={this.handleChange('phoneMask')}
-                                    id="formatted-phone-mask-input"
-                                    inputComponent={TextMaskCustom}
-                                />
+                                <InputLabel className="inputPhoneLabel" htmlFor="formatted-phone-mask-input">phone</InputLabel>
+                                <MuiPhoneNumber value={this.state.phone} onlyCountries = {['by','ru','ua']} defaultCountry={'by'} onChange={this.handlePhoneChange}/>
                             </div>
                             <div className="shopInfo__dataSection__fields__description">
                                 <TextField
@@ -268,7 +259,7 @@ class Shop extends Component {
                             </div>
                         </div>
                         <div className="shopInfo__dataSection__saveButton">
-                            <Button variant="contained" size="large" color="primary" onClick={(event) => this.handleLoadImageClick(event)}>
+                            <Button variant="contained" size="large" color="primary" onClick={(event) => this.handleSaveShopInfoClick(event)}>
                                 Save
                             </Button>
                         </div>
@@ -291,19 +282,25 @@ class Shop extends Component {
                             <MenuItem key={type} value={type}>{type}</MenuItem>
                         )}
                     </Select>
-                    {/*<InputLabel htmlFor="products-simple">Products</InputLabel>*/}
-                    {/*<Select*/}
-                    {/*    value={this.state.product}*/}
-                    {/*    onChange={this.handleChange('product')}*/}
-                    {/*    inputProps={{*/}
-                    {/*        name: 'product',*/}
-                    {/*        id: 'products-simple',*/}
-                    {/*    }}*/}
-                    {/*>*/}
-                    {/*    {this.state.products.map(product =>*/}
-                    {/*        <MenuItem key={product} value={product}>{product}</MenuItem>*/}
-                    {/*    )}*/}
-                    {/*</Select>*/}
+                    {
+                        this.state.type ? (
+                            <React.Fragment>
+                                <InputLabel htmlFor="products-simple">Products</InputLabel>
+                                <Select
+                                    value={this.state.product}
+                                    onChange={this.handleChange('product')}
+                                    inputProps={{
+                                        name: 'product',
+                                        id: 'products-simple',
+                                    }}
+                                >
+                                    {this.state.products.map(product =>
+                                        <MenuItem key={product} value={product}>{product}</MenuItem>
+                                    )}
+                                </Select>
+                            </React.Fragment>
+                        ) : null
+                    }
                 </Card >
             </div>
         );
@@ -311,6 +308,35 @@ class Shop extends Component {
 
     handleLoadImageClick(event){
 
+    }
+
+    handleSaveShopInfoClick(event){
+        // const {email, password, checkedAdmin, name, surname, phone,
+        //     country, city, street, house, apartment} = this.state;
+        // if ((email !== '') && (password !== '') && (name !== '') &&
+        //     (surname !== '') && (phone !== '') && (country !== '') &&
+        //     (city !== '') && (street !== '') && (house !== '') &&
+        //     (apartment !== '')
+        // ){
+        //     if (checkedAdmin === true){
+        //         role = "admin";
+        //     } else {
+        //         role = "user"
+        //     }
+        //     doRegistration(role, email, password, name, surname,
+        //         phone, country, city, street, house, apartment)
+        //         .then(data => {
+        //             //alert(typeof data);
+        //             showTextErrorToast(data);
+        //             if (data === 'Registration completed successfully'){
+        //                 history.push('/sign-in');
+        //             } else {
+        //             }
+        //         });
+        //
+        // } else {
+        //     showTextErrorToast("Fill in all the fields");
+        // }
     }
 
 }
