@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.PublicKey;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service("accountService")
 public class AccountServiceImpl {
@@ -74,25 +76,27 @@ public class AccountServiceImpl {
     }
 
 
-    public String validateAccountData(String name, String surname, String phone){
-        String message = "ok";
+    public List<String> validateAccountData(String name, String surname, String phone){
+
+        List<String> messages = new LinkedList<>();
 
         if ((name.length() < 1) || (name.length() > 20)) {
-            message = "Bad name";
-            return message;
+            String message = "Bad name";
+            messages.add(message);
         }
 
         if ((surname.length() < 1) || (surname.length() > 20)) {
-            message = "Bad surname";
-            return message;
+            String message = "Bad surname";
+            messages.add(message);
         }
 
-        if ((phone.length() < 8) || (phone.length() > 18)) {
-            message = "Bad phone";
-            return message;
+        if ((phone.length() < 13) || (phone.length() > 30)) {
+            String message = "Bad phone";
+            messages.add(message);
         }
 
-        return message;
+        return messages;
+
     }
 
 }

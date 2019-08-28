@@ -5,17 +5,15 @@ import "./shop.scss"
 
 import Button from "@material-ui/core/Button";
 import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import MaskedInput from 'react-text-mask';
 import history from "../../services/history";
 import {getShopInfo} from "../../services/API/shop";
 import {getProductTypes, getProductsByType} from "../../services/API/productTypes";
 import {showTextErrorToast} from "../../utils/utils";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {doRegistration} from "../../services/API/registration";
+import {changeShopInfo} from "../../services/API/shop";
 import MuiPhoneNumber from "material-ui-phone-number";
 
 class Shop extends Component {
@@ -25,7 +23,7 @@ class Shop extends Component {
         shopExists: false,
         description: '',
         name: '',
-        image: '/img/empty_shop.png',
+        image: 'empty_shop.png',
         phone: '',
         country: '',
         city: '',
@@ -157,7 +155,6 @@ class Shop extends Component {
             )
         }
 
-        const {phoneMask} = this.state;
         const backgroundColor = "#F6F6F6";
         const style = {width: 200};
         return(
@@ -282,25 +279,25 @@ class Shop extends Component {
                             <MenuItem key={type} value={type}>{type}</MenuItem>
                         )}
                     </Select>
-                    {
-                        this.state.type ? (
-                            <React.Fragment>
-                                <InputLabel htmlFor="products-simple">Products</InputLabel>
-                                <Select
-                                    value={this.state.product}
-                                    onChange={this.handleChange('product')}
-                                    inputProps={{
-                                        name: 'product',
-                                        id: 'products-simple',
-                                    }}
-                                >
-                                    {this.state.products.map(product =>
-                                        <MenuItem key={product} value={product}>{product}</MenuItem>
-                                    )}
-                                </Select>
-                            </React.Fragment>
-                        ) : null
-                    }
+                    {/*{*/}
+                    {/*    this.state.type ? (*/}
+                    {/*        <React.Fragment>*/}
+                    {/*            <InputLabel htmlFor="products-simple">Products</InputLabel>*/}
+                    {/*            <Select*/}
+                    {/*                value={this.state.product}*/}
+                    {/*                onChange={this.handleChange('product')}*/}
+                    {/*                inputProps={{*/}
+                    {/*                    name: 'product',*/}
+                    {/*                    id: 'products-simple',*/}
+                    {/*                }}*/}
+                    {/*            >*/}
+                    {/*                {this.state.products.map(product =>*/}
+                    {/*                    <MenuItem key={product} value={product}>{product}</MenuItem>*/}
+                    {/*                )}*/}
+                    {/*            </Select>*/}
+                    {/*        </React.Fragment>*/}
+                    {/*    ) : null*/}
+                    {/*}*/}
                 </Card >
             </div>
         );
@@ -311,32 +308,26 @@ class Shop extends Component {
     }
 
     handleSaveShopInfoClick(event){
-        // const {email, password, checkedAdmin, name, surname, phone,
-        //     country, city, street, house, apartment} = this.state;
-        // if ((email !== '') && (password !== '') && (name !== '') &&
-        //     (surname !== '') && (phone !== '') && (country !== '') &&
-        //     (city !== '') && (street !== '') && (house !== '') &&
-        //     (apartment !== '')
-        // ){
-        //     if (checkedAdmin === true){
-        //         role = "admin";
-        //     } else {
-        //         role = "user"
-        //     }
-        //     doRegistration(role, email, password, name, surname,
-        //         phone, country, city, street, house, apartment)
-        //         .then(data => {
-        //             //alert(typeof data);
-        //             showTextErrorToast(data);
-        //             if (data === 'Registration completed successfully'){
-        //                 history.push('/sign-in');
-        //             } else {
-        //             }
-        //         });
-        //
-        // } else {
-        //     showTextErrorToast("Fill in all the fields");
-        // }
+        const {name, description, phone,
+            country, city, street, house, apartment} = this.state;
+        const token = localStorage.getItem("user-jwt");
+        if ((name !== '') && (phone !== '') && (description !== '')
+            && (country !== '') && (city !== '') && (street !== '') && (house !== '')
+        ){
+            changeShopInfo(token, name, description, phone,
+                country, city, street, house, apartment)
+                .then(data => {
+                    //alert(typeof data);
+                    showTextErrorToast(data);
+                    // if (data === 'Registration completed successfully'){
+                    //     history.push('/sign-in');
+                    // } else {
+                    // }
+                });
+
+        } else {
+            showTextErrorToast("Fill in all the fields");
+        }
     }
 
 }

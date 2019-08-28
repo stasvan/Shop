@@ -41,6 +41,7 @@ class Registration extends Component {
         let role;
         const {email, password, checkedAdmin, name, surname, phone,
             country, city, street, house, apartment} = this.state;
+        console.log(phone)
         if ((email !== '') && (password !== '') && (name !== '') &&
             (surname !== '') && (phone !== '') && (country !== '') &&
             (city !== '') && (street !== '') && (house !== '') &&
@@ -54,8 +55,10 @@ class Registration extends Component {
             doRegistration(role, email, password, name, surname,
                 phone, country, city, street, house, apartment)
                 .then(data => {
-                    //alert(typeof data);
-                    showTextErrorToast(data);
+                    data.map(message =>
+                        showTextErrorToast(message)
+                    )
+                    // showTextErrorToast(data.toString());
                     if (data === 'Registration completed successfully'){
                         history.push('/sign-in');
                     } else {
@@ -63,7 +66,7 @@ class Registration extends Component {
                 });
 
         } else {
-            showTextErrorToast("Fill in all the fields");
+            showTextErrorToast("Fill in all the fields \n");
         }
     }
 

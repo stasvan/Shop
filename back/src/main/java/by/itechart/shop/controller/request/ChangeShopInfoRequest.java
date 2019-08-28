@@ -11,7 +11,10 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SaveShopInfoRequest implements Serializable{
+public class ChangeShopInfoRequest implements Serializable {
+    private String shopName;
+    private String description;
+    private String phoneNumber;
 
     private String country;
     private String city;
@@ -19,9 +22,29 @@ public class SaveShopInfoRequest implements Serializable{
     private String house;
     private String apartment;
 
-    private String shopName;
-    private String phoneNumber;
-    private String description;
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getCountry() {
         return country;
@@ -62,29 +85,4 @@ public class SaveShopInfoRequest implements Serializable{
     public void setApartment(String apartment) {
         this.apartment = apartment;
     }
-
-    public String getShopName() {
-        return shopName;
-    }
-
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
 }

@@ -6,7 +6,7 @@ export const getPhones = (page, limit) =>
     })
         .then(data => data.json())
         .then((data) => {
-            //console.log(data);
+            // console.log(data);
             return data });
 
 export const getPhoneByBrandNameAndModel = (brandName, model) =>

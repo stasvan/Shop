@@ -6,6 +6,10 @@ import by.itechart.shop.service.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 @Service("userService")
 public class UserServiceImpl {
 
@@ -75,25 +79,29 @@ public class UserServiceImpl {
         return userDto;
     }
 
-    public String validateUserData(String role, String email, String password){
-        String message = "ok";
+    public List<String> validateUserData(String role, String email, String password){
+
+        List<String> messages = new LinkedList<>();
 
         if ((email.length() < 8) || (email.length() > 36)) {
-            message = "Bad email, symbols range 8-36";
-            return message;
+            String message = "Bad email, symbols range 8-36";
+            messages.add(message);
         }
 
         if ((password.length() < 6) || (password.length() > 36)) {
-            message = "Bad password, symbols range 6-36";
-            return message;
+            String message = "Bad password, symbols range 6-36";
+            messages.add(message);
         }
 
         if (!role.equals("admin") && !role.equals("user")) {
-            message = "Bad role";
-            return message;
+            String message = "Bad role";
+            messages.add(message);
         }
 
-        return message;
+//        if (messages.isEmpty())
+//            messages.add("ok");
+
+        return messages;
     }
 
     public String verifyEmail(String email){

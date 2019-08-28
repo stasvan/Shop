@@ -1,5 +1,6 @@
 package by.itechart.shop.controller;
 
+import by.itechart.shop.controller.request.ChangeShopInfoRequest;
 import by.itechart.shop.controller.request.SaveShopInfoRequest;
 import by.itechart.shop.service.dto.PhoneDto;
 import by.itechart.shop.service.dto.ShopDto;
@@ -35,6 +36,33 @@ public class ShopController {
     public ResponseEntity getShopInfo(@RequestHeader(value="Authorization") String bearerToken){
         String token = bearerToken.substring(7, bearerToken.length());
         Integer userId = userService.getUserIdByEmail(jwtTokenProvider.getEmail(token));
+
+        String message = "";
+        Map<Object, Object> model = new HashMap<>();
+        ShopDto shopDto = shopService.getShopDtoByUserId(userId);
+        if (shopDto == null){
+            message = "shop does not exist";
+        } else{
+            message = "shop exists";
+        }
+        model.put("message", message);
+        model.put("shop", shopDto);
+        return ok(model);
+    }
+
+    @PutMapping("/shop")
+    @CrossOrigin("http://localhost:3000")
+    public ResponseEntity changeShopInfo(@RequestHeader(value="Authorization") String bearerToken,
+                                       @RequestBody ChangeShopInfoRequest data){
+        String token = bearerToken.substring(7, bearerToken.length());
+        Integer userId = userService.getUserIdByEmail(jwtTokenProvider.getEmail(token));
+
+        shopService.changeShopInfo(
+                userId, data.getShopName(), data.getDescription(),
+                data.getPhoneNumber(), data.getCountry(),
+                data.getCity(), data.getStreet(),
+                data.getHouse(), data.getApartment()
+        );
 
         String message = "";
         Map<Object, Object> model = new HashMap<>();

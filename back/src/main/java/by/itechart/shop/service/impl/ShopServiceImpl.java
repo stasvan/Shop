@@ -57,6 +57,19 @@ public class ShopServiceImpl {
         return shopDto;
     }
 
+    public void changeShopInfo(Integer userId, String shopName,
+                               String description, String phoneNumber,
+                               String country, String city,
+                               String street, String house,
+                               String apartment) {
+
+//        String message = addressService.validateAddressData(country, city, street, house, apartment);
+//        if (message != "ok") {
+//
+//        }
+
+    }
+
 //    public void saveShop(Integer userId, String shopName, String description,
 //                         String phoneNumber, String imageName,
 //                         String country, String city, String street,

@@ -7,6 +7,9 @@ import by.itechart.shop.service.dto.AddressDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Service("addressService")
 public class AddressServiceImpl {
 
@@ -96,35 +99,37 @@ public class AddressServiceImpl {
         return addressDto;
     }
 
-    public String validateAddressData(String country, String city, String street,
+    public List<String> validateAddressData(String country, String city, String street,
                                       String house, String apartment){
-        String message = "ok";
 
+        List<String> messages = new LinkedList<>();
+
+        //TODO create better data validation
         if ((country.length() < 2) || (country.length() > 20)) {
-            message = "Bad country";
-            return message;
+            String message = "Bad country";
+            messages.add(message);
         }
 
         if ((city.length() < 2) || (city.length() > 20)) {
-            message = "Bad city";
-            return message;
+            String message = "Bad city";
+            messages.add(message);
         }
 
         if ((street.length() < 2) || (street.length() > 20)) {
-            message = "Bad street";
-            return message;
+            String message = "Bad street";
+            messages.add(message);
         }
 
         if ((house.length() < 1) || (house.length() > 6)) {
-            message = "Bad house";
-            return message;
+            String message = "Bad house";
+            messages.add(message);
         }
 
-        if ((apartment.length() < 1) || (apartment.length() > 6)) {
-            message = "Bad apartment";
-            return message;
+        if ((apartment != null) && ((apartment.length() < 1) || (apartment.length() > 6))) {
+            String message = "Bad apartment";
+            messages.add(message);
         }
 
-        return message;
+        return messages;
     }
 }

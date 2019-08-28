@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 @Service("registrationService")
@@ -33,54 +35,50 @@ public class RegistrationServiceImpl {
             String house, String apartment
             ){
 
-        Map<Object, Object> model = new HashMap<>();
+        List<String> messages = new LinkedList<>();
 
-        String userDataValidationMessage = userService.validateUserData(role, email, password);
-        if (!userDataValidationMessage.equals("ok")){
-            model.put("message", userDataValidationMessage);
-            return ResponseEntity.status(HttpStatus.CONFLICT )
-                    .body(model);
+        List<String> userDataValidationMessages = userService.validateUserData(role, email, password);
+        if (!userDataValidationMessages.isEmpty()){
+            messages.addAll(userDataValidationMessages);
         }
         password = passwordEncoder.encode(password);
 
         String emailVerifyingMessage = userService.verifyEmail(email);
         if (!emailVerifyingMessage.equals("ok")){
-            model.put("message", emailVerifyingMessage);
-            return ResponseEntity.status(HttpStatus.CONFLICT )
-                    .body(model);
+            messages.add(emailVerifyingMessage);
         }
 
         //TODO add avatar
-        String accountDataValidationMessage = accountService.validateAccountData(name, surname, phone);
-        if (!accountDataValidationMessage.equals("ok")) {
-            model.put("message", accountDataValidationMessage);
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(model);
+        List<String> accountDataValidationMessages = accountService.validateAccountData(name, surname, phone);
+        if (!accountDataValidationMessages.isEmpty()) {
+            messages.addAll(accountDataValidationMessages);
         }
 
-        String addressDataValidationMessage = addressService
+        List<String> addressDataValidationMessages = addressService
                 .validateAddressData(country, city, street, house, apartment);
-        if (!addressDataValidationMessage.equals("ok")) {
-            model.put("message", addressDataValidationMessage);
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(model);
+        if (!addressDataValidationMessages.isEmpty()) {
+            messages.addAll(addressDataValidationMessages);
         }
 
-        userService.saveUserDto(userService.createUserDto(email, password, role));
 
-        Integer addressId = addressService
-                .saveAddressDto(addressService.createAddressDto(country, city, street, house, apartment));
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime localDateTime = LocalDateTime.now();
-        String registrationDate = dtf.format(localDateTime);
-        Integer userId = userService.getUserIdByEmail(email);
-        accountService.saveAccountDto(accountService.createAccountDto(
-                userId, addressId, name, surname, registrationDate, phone
-        ));
+        Map<String, List<String>> model = new HashMap<>();
+        if (messages.isEmpty()) {
 
+            userService.saveUserDto(userService.createUserDto(email, password, role));
+            Integer addressId = addressService
+                    .saveAddressDto(addressService.createAddressDto(country, city, street, house, apartment));
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime localDateTime = LocalDateTime.now();
+            String registrationDate = dtf.format(localDateTime);
+            Integer userId = userService.getUserIdByEmail(email);
+            accountService.saveAccountDto(accountService.createAccountDto(
+                    userId, addressId, name, surname, registrationDate, phone
+            ));
 
-        model.put("message", "Registration completed successfully");
+            messages.add("Registration completed successfully");
+        }
 
+        model.put("messages", messages);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(model);
 
