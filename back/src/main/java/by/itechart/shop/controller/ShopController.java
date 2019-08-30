@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.ok;
@@ -54,26 +55,16 @@ public class ShopController {
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity changeShopInfo(@RequestHeader(value="Authorization") String bearerToken,
                                        @RequestBody ChangeShopInfoRequest data){
-        String token = bearerToken.substring(7, bearerToken.length());
+        String token = bearerToken.substring(7);
         Integer userId = userService.getUserIdByEmail(jwtTokenProvider.getEmail(token));
 
-        shopService.changeShopInfo(
+        Map<String, List<String>> model  = shopService.changeShopInfo(
                 userId, data.getShopName(), data.getDescription(),
                 data.getPhoneNumber(), data.getCountry(),
                 data.getCity(), data.getStreet(),
                 data.getHouse(), data.getApartment()
         );
 
-        String message = "";
-        Map<Object, Object> model = new HashMap<>();
-        ShopDto shopDto = shopService.getShopDtoByUserId(userId);
-        if (shopDto == null){
-            message = "shop does not exist";
-        } else{
-            message = "shop exists";
-        }
-        model.put("message", message);
-        model.put("shop", shopDto);
         return ok(model);
     }
 

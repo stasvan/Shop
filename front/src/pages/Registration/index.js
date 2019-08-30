@@ -44,8 +44,7 @@ class Registration extends Component {
         console.log(phone)
         if ((email !== '') && (password !== '') && (name !== '') &&
             (surname !== '') && (phone !== '') && (country !== '') &&
-            (city !== '') && (street !== '') && (house !== '') &&
-            (apartment !== '')
+            (city !== '') && (street !== '') && (house !== '')
         ){
             if (checkedAdmin === true){
                 role = "admin";
@@ -55,14 +54,13 @@ class Registration extends Component {
             doRegistration(role, email, password, name, surname,
                 phone, country, city, street, house, apartment)
                 .then(data => {
-                    data.map(message =>
-                        showTextErrorToast(message)
+                    data.map(message => {
+                            showTextErrorToast(message)
+                            if (message === 'Registration completed successfully') {
+                                history.push('/sign-in');
+                            }
+                        }
                     )
-                    // showTextErrorToast(data.toString());
-                    if (data === 'Registration completed successfully'){
-                        history.push('/sign-in');
-                    } else {
-                    }
                 });
 
         } else {
@@ -193,7 +191,7 @@ class Registration extends Component {
                     />
                     <TextField
                         id="standard-apartment"
-                        label="Apartment"
+                        label="Apartment (optional)"
                         value={this.state.apartment}
                         onChange={this.handleChange('apartment')}
                         margin="normal"

@@ -71,7 +71,7 @@ public class AddressServiceImpl {
         return saveAddress(address);
     }
 
-    private Integer saveAddress(Address address){
+    public Integer saveAddress(Address address){
         Address saved = addressRepository.save(address);
         return saved.getId();
     }
@@ -125,7 +125,7 @@ public class AddressServiceImpl {
             messages.add(message);
         }
 
-        if ((apartment != null) && ((apartment.length() < 1) || (apartment.length() > 6))) {
+        if ((!apartment.equals("")) && ((apartment.length() < 1) || (apartment.length() > 6))) {
             String message = "Bad apartment";
             messages.add(message);
         }

@@ -15,12 +15,15 @@ import {showTextErrorToast} from "../../utils/utils";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {changeShopInfo} from "../../services/API/shop";
 import MuiPhoneNumber from "material-ui-phone-number";
+import {changeShopImage} from "../../services/API/image";
 
 class Shop extends Component {
 
     state = {
         isLoading: true,
         shopExists: false,
+
+        selectedImage: null,
         description: '',
         name: '',
         image: 'empty_shop.png',
@@ -169,8 +172,9 @@ class Shop extends Component {
                             <img className="shopInfo__picSection__picСontainer__pic" src={this.state.image} alt={`ddd`} />
                         </div>
                         <div className="shopInfo__picSection__loadButton">
-                            <Button variant="contained" size="large" color="primary" onClick={(event) => this.handleLoadImageClick(event)}>
-                                Load image
+                            <input type="file" onChange={this.handleLoadImageClick}/>
+                            <Button variant="contained" size="large" color="primary" onClick={(event) => this.handleSaveImageClick(event)}>
+                                Save image
                             </Button>
                         </div>
                     </Card >
@@ -197,6 +201,7 @@ class Shop extends Component {
                                     multiline
                                     rows="4"
                                     value={this.state.description}
+                                    onChange={this.handleChange('description')}
                                     margin="normal"
                                     variant="outlined"
                                     style={{width: 600}}
@@ -303,8 +308,24 @@ class Shop extends Component {
         );
     }
 
-    handleLoadImageClick(event){
+    handleLoadImageClick = event => {
+        this.setState({
+            selectedImage: event.target.files[0]
+        });
+    }
 
+    handleSaveImageClick = () => {
+        const token = localStorage.getItem("user-jwt");
+        const fd = new FormData();
+        const {name} = this.state;
+        fd.append('image', this.state.selectedImage);
+        // for (var pair of fd.entries()) {
+        //     console.log(pair[0]+ ', ' + pair[1]);
+        // }
+        changeShopImage(name, fd, token)
+            .then(res => {
+                console.log(res);
+            })
     }
 
     handleSaveShopInfoClick(event){
@@ -317,12 +338,13 @@ class Shop extends Component {
             changeShopInfo(token, name, description, phone,
                 country, city, street, house, apartment)
                 .then(data => {
-                    //alert(typeof data);
-                    showTextErrorToast(data);
-                    // if (data === 'Registration completed successfully'){
-                    //     history.push('/sign-in');
-                    // } else {
-                    // }
+                    data.map(message => {
+                            showTextErrorToast(message)
+                            if (message === 'New info saved successfully') {
+                                // history.push('/my-shop');
+                            }
+                        }
+                    )
                 });
 
         } else {

@@ -71,7 +71,7 @@ public class AccountServiceImpl {
         return account;
     }
 
-    private void saveAccount(Account account){
+    public void saveAccount(Account account){
         accountRepository.save(account);
     }
 
@@ -90,7 +90,7 @@ public class AccountServiceImpl {
             messages.add(message);
         }
 
-        if ((phone.length() < 13) || (phone.length() > 30)) {
+        if ((phone.length() < 17) || (phone.length() > 30)) {
             String message = "Bad phone";
             messages.add(message);
         }

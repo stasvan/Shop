@@ -19,6 +19,7 @@ export const changeShopInfo = (token, name, description, phone,
                              country, city, street, house, apartment) => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + token);
+    myHeaders.append("Content-Type", "application/json");
 
     const myInit = {
         method: 'PUT',
@@ -39,5 +40,5 @@ export const changeShopInfo = (token, name, description, phone,
         .then(data => data.json())
         .then((data) => {
             console.log(data);
-            return data });
+            return data.messages });
 }
