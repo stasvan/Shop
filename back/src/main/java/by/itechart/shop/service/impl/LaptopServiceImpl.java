@@ -58,12 +58,14 @@ public class LaptopServiceImpl {
         return laptopDto;
     }
 
-    public List<LaptopDto> getLaptops(Integer page, Integer limit, String brandName, String ram, Integer year) {
+    public List<LaptopDto> getLaptops(Integer page, Integer limit, String brandName, String ram, Integer year, String search) {
 
         Integer offset = limit * (page - 1);
         Pageable pageable = new PageRequest(page, limit);
+        if (search != null)
+            search = '%' + search + '%';
         List<Laptop> laptops = laptopRepository
-                .findLaptopsByBrandNameAndRamAndYearNamedParams(brandName, ram, year, pageable);
+                .findLaptopsByBrandNameAndRamAndYearAndSearchNamedParams(brandName, ram, year, search, pageable);
 
         List<LaptopDto> laptopsDto = new ArrayList<>();
         for (Laptop laptop: laptops) {
@@ -71,12 +73,6 @@ public class LaptopServiceImpl {
         }
 
         return laptopsDto;
-    }
-
-    public Long getLaptopsCount(String brandName, String ram, Integer year){
-        Long laptopsCount = laptopRepository.count();
-
-        return laptopsCount;
     }
 
     public LaptopDto createLaptopDto(Laptop laptop){

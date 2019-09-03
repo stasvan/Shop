@@ -72,12 +72,6 @@ public class TvServiceImpl {
         return tvsDto;
     }
 
-    public Long getTvsCount(String brandName, Integer year){
-        Long tvsCount = tvRepository.count();
-
-        return tvsCount;
-    }
-
     public TvDto createTvDto(Tv tv){
         TvDto tvDto = new TvDto();
 

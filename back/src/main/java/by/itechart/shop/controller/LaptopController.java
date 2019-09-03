@@ -36,12 +36,11 @@ public class LaptopController {
                                      @PathVariable(name="limit", required = true) Integer limit,
                                      @RequestParam(name="brand", required = false) String brandName,
                                      @RequestParam(name="year", required = false) Integer year,
-                                     @RequestParam(name="ram", required = false) String ram){
+                                     @RequestParam(name="ram", required = false) String ram,
+                                     @RequestParam(name="search", required = false) String search){
 
-        List<LaptopDto> laptops = laptopService.getLaptops(page, limit, brandName, ram, year);
-
-        //todo later update laptopService.getLaptopsCount with params for paging with filters
-        Long laptopsCount = laptopService.getLaptopsCount(brandName, ram, year);
+        List<LaptopDto> laptops = laptopService.getLaptops(page, limit, brandName, ram, year, search);
+        Integer laptopsCount = laptops.size();
 
         Map<Object, Object> model = new HashMap<>();
         model.put("laptops", laptops);

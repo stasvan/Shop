@@ -74,12 +74,6 @@ public class PhoneServiceImpl implements PhoneService {
         return phonesDto;
     }
 
-    public Long getPhonesCount(String brandName, String ram, Integer year){
-        Long phonesCount = phoneRepository.count();
-
-        return phonesCount;
-    }
-
     public PhoneDto createPhoneDto(Phone phone){
         PhoneDto phoneDto = new PhoneDto();
 
