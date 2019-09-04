@@ -41,7 +41,9 @@ public class TvController {
                                     @RequestParam(name="year", required = false) Integer year){
 
         List<TvDto> tvs = tvService.getTvs(page, limit, brandName, year);
-        Integer tvsCount = tvs.size();
+        //todo later update tvService.getTvsCount with params for paging with filters
+        Long tvsCount = tvService.getTvsCount(brandName, year);
+
 
         Map<Object, Object> model = new HashMap<>();
         model.put("tvs", tvs);

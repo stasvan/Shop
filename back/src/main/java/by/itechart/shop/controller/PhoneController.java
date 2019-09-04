@@ -43,7 +43,8 @@ public class PhoneController {
                                     @RequestParam(name="ram", required = false) String ram){
 
         List<PhoneDto> phones = phoneService.getPhones(page, limit, brandName, ram, year);
-        Integer phonesCount = phones.size();
+        //todo later update phoneService.getPhonesCount with params for paging with filters
+        Long phonesCount = phoneService.getPhonesCount(brandName, ram, year);
 
         Map<Object, Object> model = new HashMap<>();
         model.put("phones", phones);

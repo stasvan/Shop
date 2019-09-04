@@ -41,7 +41,7 @@ class Registration extends Component {
         let role;
         const {email, password, checkedAdmin, name, surname, phone,
             country, city, street, house, apartment} = this.state;
-        console.log(phone)
+        console.log(city)
         if ((email !== '') && (password !== '') && (name !== '') &&
             (surname !== '') && (phone !== '') && (country !== '') &&
             (city !== '') && (street !== '') && (house !== '')
@@ -72,6 +72,7 @@ class Registration extends Component {
         this.setState({
             [name]: event.target.value,
         });
+        console.log(this.state.city)
     };
 
     handlePhoneChange = value  => {

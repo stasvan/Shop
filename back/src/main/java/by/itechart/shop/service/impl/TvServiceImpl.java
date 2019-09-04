@@ -57,6 +57,12 @@ public class TvServiceImpl {
         return tvDto;
     }
 
+    public Long getTvsCount(String brandName, Integer year){
+        Long tvsCount = tvRepository.count();
+
+        return tvsCount;
+    }
+
     public List<TvDto> getTvs(Integer page, Integer limit, String brandName, Integer year) {
 
         Integer offset = limit * (page - 1);

@@ -94,9 +94,10 @@ class Shop extends Component {
 
     updateProductTypes(data){
         console.log(data);
+        data.push(null);
         this.setState({
             productTypes: data,
-            type: data[0]
+            // type: data[0]
         })
     }
 
@@ -284,25 +285,26 @@ class Shop extends Component {
                             <MenuItem key={type} value={type}>{type}</MenuItem>
                         )}
                     </Select>
-                    {/*{*/}
-                    {/*    this.state.type ? (*/}
-                    {/*        <React.Fragment>*/}
-                    {/*            <InputLabel htmlFor="products-simple">Products</InputLabel>*/}
-                    {/*            <Select*/}
-                    {/*                value={this.state.product}*/}
-                    {/*                onChange={this.handleChange('product')}*/}
-                    {/*                inputProps={{*/}
-                    {/*                    name: 'product',*/}
-                    {/*                    id: 'products-simple',*/}
-                    {/*                }}*/}
-                    {/*            >*/}
-                    {/*                {this.state.products.map(product =>*/}
-                    {/*                    <MenuItem key={product} value={product}>{product}</MenuItem>*/}
-                    {/*                )}*/}
-                    {/*            </Select>*/}
-                    {/*        </React.Fragment>*/}
-                    {/*    ) : null*/}
-                    {/*}*/}
+                    {
+                        this.state.type ? (
+                            <React.Fragment>
+                                <div>efwef</div>
+                                {/*<InputLabel htmlFor="products-simple">Products</InputLabel>*/}
+                                {/*<Select*/}
+                                {/*    value={this.state.product}*/}
+                                {/*    onChange={this.handleChange('product')}*/}
+                                {/*    inputProps={{*/}
+                                {/*        name: 'product',*/}
+                                {/*        id: 'products-simple',*/}
+                                {/*    }}*/}
+                                {/*>*/}
+                                {/*    {this.state.products.map(product =>*/}
+                                {/*        <MenuItem key={product} value={product}>{product}</MenuItem>*/}
+                                {/*    )}*/}
+                                {/*</Select>*/}
+                            </React.Fragment>
+                        ) : null
+                    }
                 </Card >
             </div>
         );

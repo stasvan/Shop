@@ -59,6 +59,12 @@ public class PhoneServiceImpl implements PhoneService {
         return phoneDto;
     }
 
+    public Long getPhonesCount(String brandName, String ram, Integer year){
+        Long phonesCount = phoneRepository.count();
+
+        return phonesCount;
+    }
+
     public List<PhoneDto> getPhones(Integer page, Integer limit, String brandName, String ram, Integer year) {
 
         Integer offset = limit * (page - 1);

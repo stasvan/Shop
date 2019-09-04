@@ -58,6 +58,13 @@ public class LaptopServiceImpl {
         return laptopDto;
     }
 
+    public Long getLaptopsCount(String brandName, String ram, Integer year, String search){
+        //todo count with search string
+        Long laptopsCount = laptopRepository.count();
+
+        return laptopsCount;
+    }
+
     public List<LaptopDto> getLaptops(Integer page, Integer limit, String brandName, String ram, Integer year, String search) {
 
         Integer offset = limit * (page - 1);
